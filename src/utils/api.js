@@ -1,10 +1,11 @@
-const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5001'
+import * as helpers from './helpers';
 
+const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5001';
 
-// Generate a unique token for storing your bookshelf data on the backend server.
+// Generate a unique token for storing your data on the backend server.
 let token = localStorage.token
 if (!token)
-  token = localStorage.token = Math.random().toString(36).substr(-8)
+  token = localStorage.token = helpers.createUUID();
 
 const headers = {
   'Accept': 'application/json',

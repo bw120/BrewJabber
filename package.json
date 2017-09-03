@@ -10,7 +10,8 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "history": "latest",
     "react-scripts": "1.0.11",
-    "redux": "latest"
+    "redux": "latest",
+    "uuid": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
