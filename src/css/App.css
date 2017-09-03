@@ -1,0 +1,254 @@
+
+/*top nav bar*/
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+.top-bar-container {
+
+    width: 100%;
+    height: 65px;
+    box-shadow: 1px 2px 10px 1px rgba(0, 0, 0, .5);
+    padding: 10px 40px;
+    background-color: #ffffff;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    width: 100%;
+    height: 45px;
+    position: relative;
+    margin: auto;
+}
+
+.logo {
+    height: 46px;
+}
+
+.categories {
+    padding: 0;
+    margin-left: -18px;
+}
+
+.category {
+    display: inline-block;
+    min-width: 100px;
+    padding: 0 10px;
+    border-right: 1px solid #666;
+    text-align: center;
+    list-style-type: none;
+}
+
+.category:last-of-type {
+    border-right: none;
+}
+
+.category a {
+    text-decoration: none;
+    color: #666;
+    cursor: pointer;
+}
+
+.category a:hover {
+    color: #00d10f;
+}
+
+.hamburger {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .top-bar-container {
+        padding: 10px 20px;
+    }
+    .categories {
+        display: block;
+        position: absolute;
+        top: 55px;
+        left: -20px;
+        background-color: #666666;
+        box-shadow: 1px 6px 8px 1px rgba(0, 0, 0, .5);
+        margin: 0;
+        z-index: 3;
+    }
+
+    .category {
+        display: block;
+        border-right: none;
+        padding: 0;
+    }
+
+    .category a:hover {
+        background-color: #dcdcdc;
+    }
+
+    .category a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 10px 30px;
+        color: #ffffff;
+    }
+
+    .hamburger {
+        display: inline-block;
+        right: 1em;
+        top: .75em;
+        bottom: .75em;
+        width: 1.75em;
+        height: 1.5em;
+        background: linear-gradient( to bottom, #666, #666 20%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 40%, #666 40%, #666 60%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0) 80%, #666 80%, #666 100%);
+        cursor: pointer;
+    }
+}
+
+
+/*main section*/
+
+main {
+    padding: 10px 40px;
+    z-index: 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+    margin: 80px auto 0 auto;
+}
+
+.list-header {
+    border-radius: 2px;
+    width: 100%;
+    background-color: #ccc;
+    box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, .3);
+    margin: 5px 0 5px 0;
+}
+
+.category-header {
+    margin: 8px 10px 10px 10px;
+    color: #017C82;
+    font-size: 1.5em;
+}
+
+.sorter-container {
+
+    background-color: rgba(65, 65, 65, .95);
+    border-radius: 0 0 2px 2px;
+    width: 100%;
+    min-height: 50px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #ffffff;
+    align-items: center;
+}
+
+.search {
+    width: calc(50% - 40px);
+    min-width: 200px;
+    height: 30px;
+    text-align: right;
+}
+
+.sorter {
+    width: calc(50% - 40px);
+    min-width: 200px;
+    text-align: right;
+    height: 30px;
+}
+
+.addPost {
+    width: 80px;
+    height: 30px;
+}
+
+.addPost a {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    padding: 4px 0 5px 0;
+}
+
+input,
+select {
+    margin: 3px 0 3px 3px;
+    height: 24px;
+    -webkit-appearance: none;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: none;
+    padding: 2px 8px 4px 8px;
+    vertical-align: middle;
+}
+
+select {
+
+    background: url(../images/selectArrow.svg) no-repeat;
+    background-size: 10px 10px;
+    background-position: right 5px center;
+    background-color: #ffffff;
+}
+
+.card {
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, .95);
+    box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, .3);
+    /*border: 1px solid #666;*/
+    width: 100%;
+    margin: 5px 0 5px 0;
+    min-height: 60px;
+    padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+
+    main {
+        padding: 10px 10px;
+    }
+
+    .main-container {
+        margin-top: 60px;
+    }
+
+    .search {
+        width: 40%;
+        min-width: auto;
+        text-align: left;
+        margin-bottom: 5px;
+        height: auto;
+    }
+
+    .sorter {
+        width: 40%;
+        min-width: auto;
+        text-align: left;
+        margin-bottom: 5px;
+        height: auto;
+    }
+
+    .addPost {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    select,
+    input {
+        width: 100%;
+    }
+
+}
