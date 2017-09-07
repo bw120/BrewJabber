@@ -27,19 +27,19 @@ class ShowNavBar extends Component {
                     <div className="nav-buttons">
                         <div className="category-outer-container">
                             <span className="category-label hideMobile">Topic: </span>
-                            <div className="category-container" onBlur={ this.toggleMenu }><div className="selected-category">
-                                <a href="" onClick={this.toggleMenu} onBlur={ this.toggleMenu }>
+                            <div className="category-container"><div className="selected-category">
+                                <a href="" onClick={this.toggleMenu}>
                                     <span className="selected-label hideMobile">Selected Topic</span>
                                     <span className="hamburger"></span>
                                 </a>
                             </div>
                             { this.props.nav && (
-                            <ul className="categories">
+                            <ul className="categories" onMouseLeave={ this.toggleMenu }>
                                 <li className="category showMobile"><Link className="category-link" to="/modifyPost/">+ Add Post</Link></li>
                                 <li className="category showMobile"><span className="menu-header" >Categories:</span></li>
                                 {
                                     this.props.categories.map((item) => (
-                                        <li key={item.name} className="category"><Link className="category-link sub" to={`/category/${item.name}`}>{item.name}</Link></li>
+                                        <li key={item.name} onClick={ this.toggleMenu } className="category"><Link className="category-link sub" to={`/category/${item.name}`}>{item.name}</Link></li>
                                     ))
                                 }
                             </ul>)}
