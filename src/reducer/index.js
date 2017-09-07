@@ -6,21 +6,13 @@ import {
   OPEN_NAV_MENU
 } from '../actions'
 
-const UI_initialState = {
-  postlist: [],
-  categories: [],
-  navMenu: false
+const nav_initialState = {
+  navMenu: false,
+  categories: []
 }
 
-function userInterface (state = UI_initialState, action) {
+function navBar (state = nav_initialState, action) {
   switch (action.type) {
-    case UPDATE_POST_LIST :
-      const { postlist } = action
-
-      return {
-        ...state,
-        postlist
-      }
     case UPDATE_CATEGORY_LIST :
       const { categories } = action
 
@@ -38,10 +30,27 @@ function userInterface (state = UI_initialState, action) {
   }
 }
 
+const postList_initialState = {
+  postlist: []
+}
 
+function postList (state = postList_initialState, action) {
+  switch (action.type) {
+    case UPDATE_POST_LIST :
+      const { postlist } = action
+
+      return {
+        ...state,
+        postlist
+      }
+    default :
+      return state
+  }
+}
 
 export default combineReducers({
-  userInterface: userInterface,
+  navBar: navBar,
+  postList: postList,
   routing: routerReducer
 });
 

@@ -4,6 +4,7 @@ import * as API from '../utils/api'
 import * as helpers from '../utils/helpers'
 import { updatePostList } from '../actions'
 import Link from 'react-router-redux-dom-link';
+import sortBy from 'sort-by'
 
 
 class ListPosts extends Component {
@@ -75,7 +76,7 @@ function mapStateToProps(state, routingDetails) {
     return {
         category: category,
         url: routingDetails.match.url,
-        postlist: state.userInterface.postlist
+        postlist: state.postList.postlist
     };
 }
 

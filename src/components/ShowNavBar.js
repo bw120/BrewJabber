@@ -60,8 +60,8 @@ class ShowNavBar extends Component {
 
 function mapStateToProps(state) {
     return {
-        categories: state.userInterface.categories,
-        nav: state.userInterface.navMenu
+        categories: state.navBar.categories,
+        nav: state.navBar.navMenu
     };
 }
 
