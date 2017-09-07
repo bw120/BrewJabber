@@ -1,21 +1,23 @@
-//placeholder actions until update
+export const UPDATE_POST_LIST = 'UPDATE_POST_LIST'
+export const UPDATE_CATEGORY_LIST = 'UPDATE_CATEGORY_LIST'
+export const OPEN_NAV_MENU = 'OPEN_NAV_MEN'
 
-export const ADD_RECIPE = 'ADD_RECIPE'
-export const REMOVE_FROM_CALENDAR = 'REMOVE_FROM_CALENDAR'
-
-export function addRecipe ({ day, recipe, meal }) {
+export function updatePostList (postlist) {
   return {
-    type: ADD_RECIPE,
-    recipe,
-    day,
-    meal,
+    type: UPDATE_POST_LIST,
+    postlist
   }
 }
 
-export function removeFromCalendar ({ day, meal }) {
+export function updateCategoryList (categories) {
   return {
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal,
+    type: UPDATE_CATEGORY_LIST,
+    categories
+  }
+}
+
+export function openNavMenu () {
+  return {
+    type: OPEN_NAV_MENU
   }
 }

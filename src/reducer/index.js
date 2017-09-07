@@ -1,46 +1,47 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from "react-router-redux";
 import {
-  ADD_RECIPE,
-  REMOVE_FROM_CALENDAR,
+  UPDATE_POST_LIST,
+  UPDATE_CATEGORY_LIST,
+  OPEN_NAV_MENU
 } from '../actions'
 
-const initialState = {
-  test: []
+const UI_initialState = {
+  postlist: [],
+  categories: [],
+  navMenu: false
 }
 
-function dummyRecucer1 (state = initialState, action) {
+function userInterface (state = UI_initialState, action) {
   switch (action.type) {
-    case ADD_RECIPE :
-      const { recipe } = action
+    case UPDATE_POST_LIST :
+      const { postlist } = action
 
       return {
         ...state,
-        [recipe.label]: recipe,
+        postlist
+      }
+    case UPDATE_CATEGORY_LIST :
+      const { categories } = action
+
+      return {
+        ...state,
+        categories
+      }
+    case OPEN_NAV_MENU :
+      return {
+        ...state,
+        navMenu: !state.navMenu
       }
     default :
       return state
   }
 }
 
-function dummyRecucer2 (state = initialState, action) {
-  switch (action.type) {
-    case ADD_RECIPE :
-      const { recipe } = action
-
-      return {
-        ...state,
-        [recipe.label]: recipe,
-      }
-    default :
-      return state
-  }
-}
 
 
 export default combineReducers({
-  dummyRecucer1: dummyRecucer1,
-  dummyRecucer2: dummyRecucer2,
+  userInterface: userInterface,
   routing: routerReducer
 });
 

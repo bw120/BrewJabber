@@ -1,33 +1,41 @@
 import React, { Component } from 'react';
 import '../css/App.css';
+
 import { Route } from 'react-router-dom'
 import ShowPostDetails from './ShowPostDetails';
-import ListAllPosts from './ListAllPosts';
+import ListPosts from './ListPosts';
 import ModifyPost from './ModifyPost';
+import ShowNavBar from './ShowNavBar';
+
 
 class App extends Component {
 
   render() {
     return (
-          <div className="app">
+        <div>
+          <ShowNavBar/>
+          <main>
 
-            {/* Main page route - list all posts */}
 
-            <Route exact path="/" component={ListAllPosts} />
+              {/* Main page route - list all posts */}
 
-            {/* Category route  - list posts for category */}
+              <Route exact path="/" component={ ListPosts } />
 
-            <Route exact path="/category/:category" component={ListAllPosts} />
+              {/* Category route  - list posts for category */}
 
-            {/* Post details route */}
+              <Route exact path="/category/:category" component={ ListPosts } />
 
-            <Route exact path="/post/:id" component={ShowPostDetails} />
+              {/* Post details route */}
 
-            {/* Modify post route */}
+              <Route exact path="/post/:id" component={ ShowPostDetails } />
 
-            <Route path="/modifyPost/:id" component={ModifyPost} />
+              {/* Modify post route */}
 
-          </div>
+              <Route path="/modifyPost/:id" component={ ModifyPost } />
+
+
+          </main>
+        </div>
     );
   }
 }

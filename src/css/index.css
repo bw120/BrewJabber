@@ -11,6 +11,11 @@ body {
     background-color: #01A2AA;
 }
 
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .root {
     width: 100%;
     height: 100%;

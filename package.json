@@ -11,7 +11,8 @@
     "history": "latest",
     "react-scripts": "1.0.11",
     "redux": "latest",
-    "uuid": "latest"
+    "uuid": "latest",
+    "react-router-redux-dom-link": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
