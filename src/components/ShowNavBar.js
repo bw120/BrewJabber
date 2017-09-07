@@ -49,7 +49,7 @@ class ShowNavBar extends Component {
                     </div>
 
 
-                    <div className="logo"><Link to="/"><img src="../images/BrewJabber_logo.svg" alt="Brew Jabber" width="175"/></Link></div>
+                    <div className="logo"><Link to="/"><img className="logo-img" src="../images/BrewJabber_logo.svg" alt="Brew Jabber" width="175"/></Link></div>
                 </div>
             </div>
           </nav>
