@@ -7,5 +7,5 @@ export const createUUID = () => {
 
 export const formatDate = (date) => {
     const d = new Date(date);
-    return `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+    return `${d.toLocaleDateString()} ${d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
 }

@@ -36,7 +36,6 @@ class ListPosts extends Component {
                 <div className="list-header">
                     <h1 className="category-header">Category head</h1>
                     <div className="sorter-container">
-                        <div className="addPost"><a href="test">+ Add Post</a></div>
                         <div className="sorter">Sort by:
                             <select className="sorter-select">
                                 <option>Rating</option>
@@ -52,7 +51,7 @@ class ListPosts extends Component {
                         <Link key={item.id} className="card-link" to={`/post/${item.id}`}>
                             <div className="card">
                                 <div className="card-content">
-                                    <div className="vote-score">Votes: {item.voteScore}</div>
+                                    <div className="vote-score"><i className="fa fa-thumbs-up" aria-hidden="true"> </i> {item.voteScore}</div>
                                     <div className="title">{item.title}</div>
                                     <div className="date">{ helpers.formatDate(item.timestamp) }</div>
                                 </div>

@@ -243,7 +243,7 @@ main {
 .sorter {
     width: calc(50% - 40px);
     min-width: 200px;
-    text-align: right;
+    text-align: left;
     height: 30px;
 }
 
@@ -302,11 +302,22 @@ textarea {
     flex-direction: row;
     justify-content: space-between;
 }
-.vote-score,
-.title,
+.vote-score {
+    display: inline-block;
+    width: 15%;
+}
+.title {
+    display: inline-block;
+    width: 55%;
+}
 .date {
     display: inline-block;
-    width: 33%;
+    width: 30%;
+}
+
+.fa-thumbs-up,
+.fa-thumbs-down {
+    color: #00D10E;
 }
 
 .card-link {
@@ -334,7 +345,6 @@ textarea {
     }
 
     .search {
-        width: 40%;
         min-width: auto;
         text-align: left;
         margin-bottom: 5px;
@@ -342,7 +352,6 @@ textarea {
     }
 
     .sorter {
-        width: 40%;
         min-width: auto;
         text-align: left;
         margin-bottom: 5px;
