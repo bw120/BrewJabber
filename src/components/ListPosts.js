@@ -34,7 +34,7 @@ class ListPosts extends Component {
         return (
             <div className="main-container">
                 <div className="list-header">
-                    <h1 className="category-header">Category head</h1>
+                    <h1 className="category-header">{this.props.category || "All Posts"}</h1>
                     <div className="sorter-container">
                         <div className="sorter">Sort by:
                             <select className="sorter-select">
