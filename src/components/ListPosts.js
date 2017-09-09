@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as API from '../utils/api'
 import * as helpers from '../utils/helpers'
-import { updatePostList, sortListBy } from '../actions'
+import { updatePostList, sortListBy, seachListBy } from '../actions'
 import Link from 'react-router-redux-dom-link';
 import sortBy from 'sort-by'
+import escapeRegExp from 'escape-string-regexp'
 
 
 class ListPosts extends Component {
@@ -32,6 +33,17 @@ class ListPosts extends Component {
     }
 
     render() {
+        console.log(this.props)
+        let postList;
+
+        if (this.props.searchquery.length > 0) {
+            let match = new RegExp(escapeRegExp(this.props.searchquery), 'i');
+            postList = this.props.postlist.filter((post) => match.test(post.title));
+
+        } else {
+            postList = this.props.postlist;
+        }
+
         return (
             <div className="main-container">
                 <div className="list-header">
@@ -46,11 +58,11 @@ class ListPosts extends Component {
                                 <option value="voteScore">Worst rating</option>
                             </select>
                         </div>
-                        <div className="search">Search: <input type="text" className="search-input"/></div>
+                        <div className="search">Search: <input type="text" className="search-input" onChange={(event)=> (this.props.updateQquery(event.target.value))}/></div>
                     </div>
                 </div>
                 {
-                    this.props.postlist.sort(sortBy(this.props.sortby)).map((item) => (
+                    postList.sort(sortBy(this.props.sortby)).map((item) => (
                         <Link key={item.id} className="card-link" to={`/post/${item.id}`}>
                             <div className="card">
                                 <div className="card-content">
@@ -70,7 +82,8 @@ class ListPosts extends Component {
 function mapDispatchToProps (dispatch) {
   return {
     updateList: (data) => dispatch(updatePostList(data)),
-    changeSortBy: (data) => dispatch(sortListBy(data))
+    changeSortBy: (data) => dispatch(sortListBy(data)),
+    updateQquery: (data) => dispatch(seachListBy(data))
   }
 }
 
@@ -80,7 +93,8 @@ function mapStateToProps(state, routingDetails) {
         category: category,
         url: routingDetails.match.url,
         postlist: state.postList.postlist,
-        sortby: state.postList.sortBy
+        sortby: state.postList.sortBy,
+        searchquery: state.postList.searchQuery
     };
 }
 

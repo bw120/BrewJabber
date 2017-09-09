@@ -4,7 +4,8 @@ import {
   UPDATE_POST_LIST,
   UPDATE_CATEGORY_LIST,
   OPEN_NAV_MENU,
-  SORT_LIST_BY
+  SORT_LIST_BY,
+  SEARCH_LIST_BY
 } from '../actions'
 
 const nav_initialState = {
@@ -33,7 +34,8 @@ function navBar (state = nav_initialState, action) {
 
 const postList_initialState = {
   postlist: [],
-  sortBy: "voteScore"
+  sortBy: "voteScore",
+  searchQuery: ""
 }
 
 function postList (state = postList_initialState, action) {
@@ -51,6 +53,13 @@ function postList (state = postList_initialState, action) {
       return {
         ...state,
         sortBy : attribute
+      }
+
+    case SEARCH_LIST_BY :
+      const { query } = action
+      return {
+        ...state,
+        searchQuery : query
       }
     default :
       return state

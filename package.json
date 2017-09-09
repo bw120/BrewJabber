@@ -13,7 +13,8 @@
     "redux": "latest",
     "uuid": "latest",
     "react-router-redux-dom-link": "latest",
-    "sortby": "latest"
+    "sortby": "latest",
+    "escape-regexp": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
