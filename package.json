@@ -12,7 +12,8 @@
     "react-scripts": "1.0.11",
     "redux": "latest",
     "uuid": "latest",
-    "react-router-redux-dom-link": "latest"
+    "react-router-redux-dom-link": "latest",
+    "sortby": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

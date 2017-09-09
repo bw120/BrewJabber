@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as API from '../utils/api'
 import * as helpers from '../utils/helpers'
-import { updatePostList } from '../actions'
+import { updatePostList, sortListBy } from '../actions'
 import Link from 'react-router-redux-dom-link';
 import sortBy from 'sort-by'
 
@@ -38,17 +38,17 @@ class ListPosts extends Component {
                     <h1 className="category-header">{this.props.category || "All Posts"}</h1>
                     <div className="sorter-container">
                         <div className="sorter">Sort by:
-                            <select className="sorter-select">
-                                <option>Rating</option>
-                                <option>Date</option>
-                                <option>Alphabetical by title</option>
+                            <select value={ this.props.sortby } onChange={(event)=> (this.props.changeSortBy(event.target.value))} className="sorter-select">
+                                <option value="timestamp">Date</option>
+                                <option value="voteScore">Rating</option>
+                                <option value="title">Alphabetical by title</option>
                             </select>
                         </div>
                         <div className="search">Search: <input type="text" className="search-input"/></div>
                     </div>
                 </div>
                 {
-                    this.props.postlist.map((item) => (
+                    this.props.postlist.sort(sortBy(this.props.sortby)).map((item) => (
                         <Link key={item.id} className="card-link" to={`/post/${item.id}`}>
                             <div className="card">
                                 <div className="card-content">
@@ -67,7 +67,8 @@ class ListPosts extends Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    updateList: (data) => dispatch(updatePostList(data))
+    updateList: (data) => dispatch(updatePostList(data)),
+    changeSortBy: (data) => dispatch(sortListBy(data))
   }
 }
 
@@ -76,7 +77,8 @@ function mapStateToProps(state, routingDetails) {
     return {
         category: category,
         url: routingDetails.match.url,
-        postlist: state.postList.postlist
+        postlist: state.postList.postlist,
+        sortby: state.postList.sortBy
     };
 }
 

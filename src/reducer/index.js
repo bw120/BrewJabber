@@ -3,7 +3,8 @@ import { routerReducer } from "react-router-redux";
 import {
   UPDATE_POST_LIST,
   UPDATE_CATEGORY_LIST,
-  OPEN_NAV_MENU
+  OPEN_NAV_MENU,
+  SORT_LIST_BY
 } from '../actions'
 
 const nav_initialState = {
@@ -31,7 +32,8 @@ function navBar (state = nav_initialState, action) {
 }
 
 const postList_initialState = {
-  postlist: []
+  postlist: [],
+  sortBy: "voteScore"
 }
 
 function postList (state = postList_initialState, action) {
@@ -42,6 +44,13 @@ function postList (state = postList_initialState, action) {
       return {
         ...state,
         postlist
+      }
+    case SORT_LIST_BY :
+      const { attribute } = action
+
+      return {
+        ...state,
+        sortBy : attribute
       }
     default :
       return state
