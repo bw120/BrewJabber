@@ -39,9 +39,11 @@ class ListPosts extends Component {
                     <div className="sorter-container">
                         <div className="sorter">Sort by:
                             <select value={ this.props.sortby } onChange={(event)=> (this.props.changeSortBy(event.target.value))} className="sorter-select">
-                                <option value="timestamp">Date</option>
-                                <option value="voteScore">Rating</option>
-                                <option value="title">Alphabetical by title</option>
+                                <option value="title">Title</option>
+                                <option value="-timestamp">Newest</option>
+                                <option value="timestamp">Oldest</option>
+                                <option value="-voteScore">Best rating</option>
+                                <option value="voteScore">Worst rating</option>
                             </select>
                         </div>
                         <div className="search">Search: <input type="text" className="search-input"/></div>

@@ -24,7 +24,6 @@ export function openNavMenu () {
 }
 
 export function sortListBy (attribute) {
-    console.log(attribute);
     return {
         type: SORT_LIST_BY,
         attribute
