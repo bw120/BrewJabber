@@ -61,7 +61,7 @@ class ListPosts extends Component {
                     </div>
                 </div>
                 {
-                    postList.sort(sortBy(this.props.sortby)).map((item) => (
+                    postList.sort(sortBy(this.props.sortby)).filter((item) => (!item.deleted)).map((item) => (
                         <Link key={item.id} className="card-link" to={`/post/${item.id}`}>
                             <div className="card">
                                 <div className="card-content">
