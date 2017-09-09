@@ -66,7 +66,7 @@ class ListPosts extends Component {
                         <Link key={item.id} className="card-link" to={`/post/${item.id}`}>
                             <div className="card">
                                 <div className="card-content">
-                                    <div className="vote-score"><i className="fa fa-thumbs-up" aria-hidden="true"> </i> {item.voteScore}</div>
+                                    <div className="vote-score">{(item.voteScore >= 0) ? (<i className="fa fa-thumbs-up" aria-hidden="true"> </i>) : (<i className="fa fa-thumbs-down" aria-hidden="true"> </i>)} {item.voteScore}</div>
                                     <div className="title">{item.title}</div>
                                     <div className="date">{ helpers.formatDate(item.timestamp) }</div>
                                 </div>
