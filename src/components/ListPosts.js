@@ -48,7 +48,7 @@ class ListPosts extends Component {
                 <div className="list-header">
                     <h1 className="category-header">{this.props.category || "All Posts"}</h1>
                     <div className="sorter-container">
-                        <div className="sorter">Sort by:
+                        <div className="sorter">Sort by:&nbsp;
                             <select value={ this.props.sortby } onChange={(event)=> (this.props.changeSortBy(event.target.value))} className="sorter-select">
                                 <option value="title">Title</option>
                                 <option value="-timestamp">Newest</option>
@@ -57,7 +57,7 @@ class ListPosts extends Component {
                                 <option value="voteScore">Worst rating</option>
                             </select>
                         </div>
-                        <div className="search">Search: <input type="text" className="search-input" onChange={(event)=> (this.props.updateQquery(event.target.value))}/></div>
+                        <div className="search">Search: <input type="text" className="search-input" value={this.props.searchquery} onChange={(event)=> (this.props.updateQuery(event.target.value))}/></div>
                     </div>
                 </div>
                 {
@@ -67,8 +67,8 @@ class ListPosts extends Component {
                                 <div className="card-content">
                                     <div className="vote-score">
                                         {(item.voteScore >= 0) ?
-                                            (<i className="fa fa-thumbs-up" aria-hidden="true"> </i>) : (<i className="fa fa-thumbs-down" aria-hidden="true"> </i>)}
-                                        {item.voteScore}</div>
+                                            (<i className="fa fa-thumbs-up" aria-hidden="true"> </i> ) : (<i className="fa fa-thumbs-down" aria-hidden="true"> </i> )}
+                                        &nbsp;{item.voteScore}</div>
                                     <div className="title">{item.title}</div>
                                     <div className="date">{ helpers.formatDate(item.timestamp) }</div>
                                 </div>
@@ -85,7 +85,7 @@ function mapDispatchToProps (dispatch) {
   return {
     updateList: (data) => dispatch(updatePostList(data)),
     changeSortBy: (data) => dispatch(sortListBy(data)),
-    updateQquery: (data) => dispatch(seachListBy(data))
+    updateQuery: (data) => dispatch(seachListBy(data))
   }
 }
 
