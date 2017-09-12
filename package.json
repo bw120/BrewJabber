@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "escape-regexp": "latest",
+    "history": "latest",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "latest",
     "react-router-dom": "latest",
     "react-router-redux": "^5.0.0-alpha.6",
-    "history": "latest",
+    "react-router-redux-dom-link": "latest",
     "react-scripts": "1.0.11",
     "redux": "latest",
-    "uuid": "latest",
-    "react-router-redux-dom-link": "latest",
+    "redux-thunk": "^2.2.0",
     "sortby": "latest",
-    "escape-regexp": "latest"
+    "uuid": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

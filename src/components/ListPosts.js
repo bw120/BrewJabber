@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as API from '../utils/api'
 import * as helpers from '../utils/helpers'
 import { updatePostList, sortListBy, seachListBy } from '../actions'
+import { getPosts } from '../actions/thunks'
 import Link from 'react-router-redux-dom-link';
 import sortBy from 'sort-by'
 import escapeRegExp from 'escape-string-regexp'
@@ -11,24 +11,12 @@ import escapeRegExp from 'escape-string-regexp'
 class ListPosts extends Component {
 
     componentDidMount = () => {
-        this.updatePostList(this.props.category);
+        this.props.updateList(this.props.category);
     };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.url !== this.props.url) {
-          this.updatePostList(nextProps.category);
-        }
-    }
-
-    updatePostList = (category) => {
-        if (typeof(category) !== "undefined") {
-            API.getPostsByCategory(category).then((posts) => {
-                this.props.updateList(posts);
-            });
-        } else {
-            API.getAllPosts().then((posts) => {
-                this.props.updateList(posts);
-            });
+          this.props.updateList(nextProps.category);
         }
     }
 
@@ -83,7 +71,7 @@ class ListPosts extends Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    updateList: (data) => dispatch(updatePostList(data)),
+    updateList: (data) => dispatch(getPosts(data)),
     changeSortBy: (data) => dispatch(sortListBy(data)),
     updateQuery: (data) => dispatch(seachListBy(data))
   }
