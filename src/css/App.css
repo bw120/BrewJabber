@@ -329,6 +329,17 @@ textarea {
     color: #00D10E;
 }
 
+.vote-buttons {
+    padding: 0 10px 0 10px;
+}
+
+.vote-button {
+    padding: 0 5px 0 5px;
+}
+.vote-button i:hover {
+    color: #017C82;
+}
+
 .card-link {
     text-decoration: none;
     color: #666;

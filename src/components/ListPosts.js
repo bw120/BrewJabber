@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as helpers from '../utils/helpers'
-import { updatePostList, sortListBy, seachListBy } from '../actions'
+import { sortListBy, seachListBy } from '../actions'
 import { getPosts } from '../actions/thunks'
 import Link from 'react-router-redux-dom-link';
 import sortBy from 'sort-by'

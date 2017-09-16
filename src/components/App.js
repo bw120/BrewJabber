@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../css/App.css';
-
 import { Route } from 'react-router-dom'
 import ShowPostDetails from './ShowPostDetails';
 import ListPosts from './ListPosts';
@@ -19,7 +18,7 @@ class App extends Component {
 
               {/* Main page route - list all posts */}
 
-              <Route exact path="/" component={ ListPosts } />
+              <Route exact path="/" component={ ListPosts }/>
 
               {/* Category route  - list posts for category */}
 

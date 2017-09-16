@@ -2,7 +2,14 @@ export const UPDATE_POST_LIST = 'UPDATE_POST_LIST'
 export const UPDATE_CATEGORY_LIST = 'UPDATE_CATEGORY_LIST'
 export const OPEN_NAV_MENU = 'OPEN_NAV_MEN'
 export const SORT_LIST_BY = 'SORT_LIST_BY'
+export const SORT_COMMENTS_BY = 'SORT_COMMENTS_BY'
 export const SEARCH_LIST_BY = 'SEARCH_LIST_BY'
+export const GET_POST_DETAILS = 'GET_POST_DETAILS'
+export const GET_COMMENT_LIST = 'GET_COMMENT_LIST'
+export const API_RETURNED_ERROR = 'API_RETURNED_ERROR'
+export const API_FETCHING_DATA = 'API_FETCHING_DATA'
+export const UPDATE_POST_VOTE = "UPDATE_POST_VOTE"
+export const UPDATE_COMMENT_VOTE = "UPDATE_COMMENT_VOTE"
 
 export function updatePostList (postlist) {
   return {
@@ -31,9 +38,59 @@ export function sortListBy (attribute) {
     }
 }
 
+export function sortCommentsBy (attribute) {
+    return {
+        type: SORT_COMMENTS_BY,
+        attribute
+    }
+}
+
 export function seachListBy (query) {
     return {
         type: SEARCH_LIST_BY,
         query
     }
 }
+
+export function getPostDetails (postDetails) {
+    return {
+        type: GET_POST_DETAILS,
+        postDetails
+    }
+}
+
+export function getCommentList (comments) {
+    return {
+        type: GET_COMMENT_LIST,
+        comments
+    }
+}
+
+export function updateCommentVote (commentVote, commentId) {
+    return {
+        type: UPDATE_COMMENT_VOTE,
+        commentVote, commentId
+    }
+}
+
+export function updatePostVote (vote, id) {
+    return {
+        type: UPDATE_POST_VOTE,
+        vote, id
+    }
+}
+
+export function apiIsFetchingData (bool) {
+    return {
+      type: API_FETCHING_DATA,
+      isFetching: bool
+    }
+}
+
+export function apiReturnedError (bool) {
+    return {
+      type: API_RETURNED_ERROR,
+      errored: bool
+    }
+}
+
