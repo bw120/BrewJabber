@@ -133,10 +133,17 @@ nav {
 .logo {
     height: auto;
 }
+.logo a {
+    display: block;
+    position: relative;
+}
 
 .logo-img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
+    max-height: 50px;
+    top: 50%;
+    transform: translateY(-50%;);
 }
 .showMobile {
     display: initial;
@@ -547,4 +554,82 @@ button:hover {
     button {
         width: 100%;
     }
+}
+
+/*modal window*/
+.modal-background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(100, 100, 100, .6);
+    z-index: 2;
+}
+
+.modal-window {
+    position: absolute;
+    margin: auto;
+    background-color: #ffffff;
+    top: 50%;
+    max-height: calc(100% - 40px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #666;
+    padding: 0;
+    box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, .3);
+    overflow-y: auto;
+    max-width: calc(100% - 100px);
+}
+
+.modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #666;
+}
+
+.modal-title {
+    padding: 10px 20px;
+    font-weight: 700;
+}
+
+.modal-close {
+    display: block;
+    color: #666666;
+    padding: 5px 10px 10px 10px;
+}
+
+.modal-content {
+    padding: 0 20px 20px 20px;
+}
+
+.modal-message {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.edit-comment-item {
+    width: 900px;
+    max-width: calc(100% - 20px);
+}
+
+.edit-comment-field {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: block;
+    margin: 0;
+}
+
+label {
+    font-weight: 700;
+}
+
+.error {
+    color: #ff0000;
+    font-weight: 400;
+}
+
+.form-group {
+    margin-bottom: 10px;
 }

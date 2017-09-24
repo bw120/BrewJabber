@@ -12,7 +12,11 @@ import {
     API_RETURNED_ERROR,
     API_FETCHING_DATA,
     UPDATE_COMMENT_VOTE,
-    UPDATE_POST_VOTE
+    UPDATE_POST_VOTE,
+    TOGGLE_MODAL_WINDOW,
+    DELETE_COMMENT,
+    EDIT_COMMENT,
+    ADD_COMMENT
 } from '../actions'
 
 const nav_initialState = {
@@ -92,7 +96,7 @@ function postDetails(state = postDetails_initialState, action) {
                 comments
             }
         case UPDATE_POST_VOTE:
-            const { vote, id } = action
+            const { vote } = action
             const voteScore = state.postDetails.voteScore + ((vote === "upVote") ? 1 : -1);
             return {
                 ...state,
@@ -111,6 +115,29 @@ function postDetails(state = postDetails_initialState, action) {
                     }
                     return item;
                 })
+            }
+        case DELETE_COMMENT:
+            const { DeletedID } = action
+            return {
+                ...state,
+                comments : state.comments.filter((item) => ( item.id !== DeletedID))
+            }
+        case EDIT_COMMENT:
+            const { editedComment } = action
+            return {
+                ...state,
+                comments : state.comments.map((item) => {
+                    if (item.id === editedComment.id) {
+                        return editedComment;
+                    }
+                    return item;
+                })
+            }
+        case ADD_COMMENT:
+            const { addedComment } = action
+            return {
+                ...state,
+                comments : state.comments.concat([addedComment])
             }
         case SORT_COMMENTS_BY:
             const { attribute } = action
@@ -149,10 +176,32 @@ function apiStatus(state = apiStatus_initialState, action) {
     }
 }
 
+const modalWindow_initialState = {
+    open: false,
+    title: "Modal Title",
+    component: "",
+    itemId: ""
+}
+
+function modalWindow(state = modalWindow_initialState, action) {
+    switch (action.type) {
+        case TOGGLE_MODAL_WINDOW:
+            const { open, title, itemId, component } = action
+            return {
+                ...state,
+                open, title, itemId, component
+            }
+        default:
+            return state
+    }
+}
+
+
 export default combineReducers({
     navBar: navBar,
     postList: postList,
     postDetails: postDetails,
+    modalWindow: modalWindow,
     routing: routerReducer,
     apiStatus: apiStatus
 });

@@ -30,7 +30,6 @@ class ListPosts extends Component {
         } else {
             postList = this.props.postlist;
         }
-
         return (
             <div className="main-container">
                 <div className="list-header">

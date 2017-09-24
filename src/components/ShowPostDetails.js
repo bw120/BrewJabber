@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom'
-import * as API from '../utils/api'
+// import * as API from '../utils/api'
 import * as helpers from '../utils/helpers'
 import { retreivePostDetails, retreiveComments, vote } from '../actions/thunks'
-import { sortCommentsBy } from '../actions'
+import { sortCommentsBy, toggleModalWindow } from '../actions'
 import sortBy from 'sort-by'
+import Modal from '../components/Modal'
 
 class ShowPostDetails extends Component {
 
@@ -14,11 +15,10 @@ class ShowPostDetails extends Component {
         this.props.getPostComments(this.props.id);
     };
 
-
     render() {
-        console.log(this.props.sortCommentsBy)
         return (
             <div className="main-container">
+            { (this.props.modalWindowOpen) && (<Modal/>) }
                 <div className="post">
                     <div className="post-header">
                         <div className="post-back"><button onClick={()=> (this.props.history.goBack())}>Go Back</button></div>
@@ -61,7 +61,7 @@ class ShowPostDetails extends Component {
                                         </select>
                                     </div>
                                 </div>
-                                <a className="comments-section-add" href="#">+ Add Comment</a>
+                                <a className="comments-section-add" onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "Edit Comment", null, "edit")}}>+ Add Comment</a>
                             </div>
                         </div>
 
@@ -87,7 +87,8 @@ class ShowPostDetails extends Component {
                                         </span>
                                 </div>
                                 <div className="comment-delete-edit">
-                                    <a href="#">Delete</a> | <a href="#">Edit</a>
+                                    <a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "", item.id, "delete")}}>Delete</a> |
+                                    <a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "Edit Comment", item.id, "edit")}}>Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +108,8 @@ function mapStateToProps(state, routingDetails) {
         id: routingDetails.match.params.id,
         postDetails: state.postDetails.postDetails,
         comments: state.postDetails.comments,
-        sortCommentsBy: state.postDetails.sortBy
+        sortCommentsBy: state.postDetails.sortBy,
+        modalWindowOpen: state.modalWindow.open
     };
 }
 
@@ -116,7 +118,8 @@ function mapDispatchToProps (dispatch) {
     getPostDetails: (data) => dispatch(retreivePostDetails(data)),
     getPostComments: (data) => dispatch(retreiveComments(data)),
     goVote: (action, type, id) => dispatch(vote(action, type, id)),
-    changeSortBy: (attribute) => dispatch(sortCommentsBy(attribute))
+    changeSortBy: (attribute) => dispatch(sortCommentsBy(attribute)),
+    openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component))
   }
 }
 

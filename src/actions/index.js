@@ -10,6 +10,10 @@ export const API_RETURNED_ERROR = 'API_RETURNED_ERROR'
 export const API_FETCHING_DATA = 'API_FETCHING_DATA'
 export const UPDATE_POST_VOTE = "UPDATE_POST_VOTE"
 export const UPDATE_COMMENT_VOTE = "UPDATE_COMMENT_VOTE"
+export const TOGGLE_MODAL_WINDOW = "TOGGLE_MODAL_WINDOW"
+export const DELETE_COMMENT = "DELETE_COMMENT"
+export const EDIT_COMMENT = "EDIT_COMMENT"
+export const ADD_COMMENT = "ADD_COMMENT"
 
 export function updatePostList (postlist) {
   return {
@@ -91,6 +95,34 @@ export function apiReturnedError (bool) {
     return {
       type: API_RETURNED_ERROR,
       errored: bool
+    }
+}
+
+export function toggleModalWindow (open, title, itemId, component) {
+    return {
+      type: TOGGLE_MODAL_WINDOW,
+      open, title, itemId, component
+    }
+}
+
+export function deleteComment (DeletedID) {
+    return {
+      type: DELETE_COMMENT,
+      DeletedID
+    }
+}
+
+export function editComment (editedComment) {
+    return {
+      type: EDIT_COMMENT,
+      editedComment
+    }
+}
+
+export function addComment (addedComment) {
+    return {
+      type: ADD_COMMENT,
+      addedComment
     }
 }
 

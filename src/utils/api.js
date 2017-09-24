@@ -103,7 +103,7 @@ export const commentVote = (id, vote) =>
     body: JSON.stringify({ option: vote })
   }).then(res => res.json());
 
-export const editComment = (id, commentDetails) =>
+export const editComment = (commentDetails, id) =>
   fetch(`${api}/comments/${id}`, {
     method: 'PUT',
     headers: {

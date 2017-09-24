@@ -1,4 +1,4 @@
-import { updatePostList, getPostDetails, getCommentList, apiIsFetchingData, apiReturnedError, updatePostVote, updateCommentVote } from '../actions'
+import { updatePostList, getPostDetails, getCommentList, apiIsFetchingData, apiReturnedError, updatePostVote, updateCommentVote, deleteComment, toggleModalWindow, addComment, editComment} from '../actions'
 import * as API from '../utils/api'
 
 export function getPosts(category) {
@@ -36,6 +36,7 @@ export function retreiveComments(id) {
 }
 
 export function vote(vote, type, id) {
+
     let apiCall, action;
     if (type === "comment") {
         apiCall = API.commentVote;
@@ -55,5 +56,31 @@ export function vote(vote, type, id) {
     };
 }
 
+export function removeComment(id) {
+    return function (dispatch) {
+        dispatch(apiIsFetchingData(true));
+        return API.deleteComment(id).then((res) => {
+            dispatch(apiIsFetchingData(false));
+            dispatch(apiReturnedError(false));
+            dispatch(deleteComment(id));
+            dispatch(toggleModalWindow(false));
+        }).catch(()=> dispatch(apiReturnedError(true)));
+    };
+}
 
+export function editOrAddComment(comment, id) {
+    const apiCall = (id)? API.editComment : API.addComment;
+    const action = (id)? editComment : addComment;
+console.log(id)
+    return function (dispatch) {
+        dispatch(apiIsFetchingData(true));
+        return apiCall(comment, id).then((res) => {
+            dispatch(toggleModalWindow(false));
+            console.log(res);
+            dispatch(apiIsFetchingData(false));
+            dispatch(apiReturnedError(false));
+            dispatch(action(comment, id));
+        }).catch(()=> dispatch(apiReturnedError(true)));
+    };
+}
 
