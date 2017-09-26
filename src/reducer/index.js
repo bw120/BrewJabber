@@ -16,12 +16,15 @@ import {
     TOGGLE_MODAL_WINDOW,
     DELETE_COMMENT,
     EDIT_COMMENT,
-    ADD_COMMENT
+    ADD_COMMENT,
+    EDIT_POST,
+    ADD_POST
 } from '../actions'
 
 const nav_initialState = {
     navMenu: false,
-    categories: []
+    categories: [],
+    selectedCategory: ""
 }
 
 function navBar(state = nav_initialState, action) {

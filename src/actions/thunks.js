@@ -1,4 +1,4 @@
-import { updatePostList, getPostDetails, getCommentList, apiIsFetchingData, apiReturnedError, updatePostVote, updateCommentVote, deleteComment, toggleModalWindow, addComment, editComment} from '../actions'
+import { updatePostList, getPostDetails, getCommentList, apiIsFetchingData, apiReturnedError, updatePostVote, updateCommentVote, deleteComment, toggleModalWindow, addComment, editComment, addPost, editPost} from '../actions'
 import * as API from '../utils/api'
 
 export function getPosts(category) {
@@ -71,7 +71,6 @@ export function removeComment(id) {
 export function editOrAddComment(comment, id) {
     const apiCall = (id)? API.editComment : API.addComment;
     const action = (id)? editComment : addComment;
-console.log(id)
     return function (dispatch) {
         dispatch(apiIsFetchingData(true));
         return apiCall(comment, id).then((res) => {
@@ -84,3 +83,18 @@ console.log(id)
     };
 }
 
+export function editOrAddPost(post, id) {
+    const apiCall = (id)? API.editPost : API.createPost;
+    const action = (id)? editPost : addPost;
+console.log(id)
+    return function (dispatch) {
+        dispatch(apiIsFetchingData(true));
+        return apiCall(post, id).then((res) => {
+            dispatch(toggleModalWindow(false));
+            console.log(res);
+            dispatch(apiIsFetchingData(false));
+            dispatch(apiReturnedError(false));
+            dispatch(action(post, id));
+        }).catch(()=> dispatch(apiReturnedError(true)));
+    };
+}

@@ -30,7 +30,7 @@ class App extends Component {
 
               {/* Modify post route */}
 
-              <Route path="/modifyPost/:id" component={ ModifyPost } />
+              <Route path="/modifyPost/:id?" component={ ModifyPost } />
 
 
           </main>

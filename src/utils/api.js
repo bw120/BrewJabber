@@ -43,7 +43,7 @@ export const createPost = (postDetails) =>
     body: JSON.stringify(postDetails)
   }).then(res => res.json());
 
-export const editPost = (id, postDetails) =>
+export const editPost = (postDetails, id) =>
   fetch(`${api}/posts/${id}`, {
     method: 'PUT',
     headers: {

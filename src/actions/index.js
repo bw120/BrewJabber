@@ -14,6 +14,8 @@ export const TOGGLE_MODAL_WINDOW = "TOGGLE_MODAL_WINDOW"
 export const DELETE_COMMENT = "DELETE_COMMENT"
 export const EDIT_COMMENT = "EDIT_COMMENT"
 export const ADD_COMMENT = "ADD_COMMENT"
+export const EDIT_POST = "EDIT_POST"
+export const ADD_POST = "ADD_POST"
 
 export function updatePostList (postlist) {
   return {
@@ -126,3 +128,16 @@ export function addComment (addedComment) {
     }
 }
 
+export function editPost (editedPost) {
+    return {
+      type: EDIT_POST,
+      editedPost
+    }
+}
+
+export function addPost (addedPost) {
+    return {
+      type: ADD_POST,
+      addedPost
+    }
+}

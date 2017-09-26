@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router-dom'
-// import * as API from '../utils/api'
+import { Link } from 'react-router-dom'
 import * as helpers from '../utils/helpers'
 import { retreivePostDetails, retreiveComments, vote } from '../actions/thunks'
 import { sortCommentsBy, toggleModalWindow } from '../actions'
@@ -40,7 +39,7 @@ class ShowPostDetails extends Component {
                                 </span>
                             </div>
                             <div className="post-delete-edit">
-                                <a href="#">Delete</a> | <a href="#">Edit</a>
+                                <a href="#">Delete</a> | <Link to={`/modifyPost/${this.props.id}`}>Edit</Link>
                             </div>
                         </div>
                     </div>
