@@ -22,15 +22,15 @@ class App extends Component {
 
               {/* Category route  - list posts for category */}
 
-              <Route exact path="/category/:category" component={ ListPosts } />
+              <Route exact path="/category/:category?" component={ ListPosts } />
 
               {/* Post details route */}
 
-              <Route exact path="/post/:id" component={ ShowPostDetails } />
+              <Route exact path="/post/:id?" component={ ShowPostDetails } />
 
               {/* Modify post route */}
 
-              <Route path="/modifyPost/:id?" component={ ModifyPost } />
+              <Route exact path="/modifyPost/:id?" component={ ModifyPost } />
 
 
           </main>
