@@ -1,5 +1,6 @@
 export const UPDATE_POST_LIST = 'UPDATE_POST_LIST'
 export const UPDATE_CATEGORY_LIST = 'UPDATE_CATEGORY_LIST'
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
 export const OPEN_NAV_MENU = 'OPEN_NAV_MEN'
 export const SORT_LIST_BY = 'SORT_LIST_BY'
 export const SORT_COMMENTS_BY = 'SORT_COMMENTS_BY'
@@ -8,14 +9,15 @@ export const GET_POST_DETAILS = 'GET_POST_DETAILS'
 export const GET_COMMENT_LIST = 'GET_COMMENT_LIST'
 export const API_RETURNED_ERROR = 'API_RETURNED_ERROR'
 export const API_FETCHING_DATA = 'API_FETCHING_DATA'
-export const UPDATE_POST_VOTE = "UPDATE_POST_VOTE"
-export const UPDATE_COMMENT_VOTE = "UPDATE_COMMENT_VOTE"
-export const TOGGLE_MODAL_WINDOW = "TOGGLE_MODAL_WINDOW"
-export const DELETE_COMMENT = "DELETE_COMMENT"
-export const EDIT_COMMENT = "EDIT_COMMENT"
-export const ADD_COMMENT = "ADD_COMMENT"
-export const EDIT_POST = "EDIT_POST"
-export const ADD_POST = "ADD_POST"
+export const UPDATE_POST_VOTE = 'UPDATE_POST_VOTE'
+export const UPDATE_COMMENT_VOTE = 'UPDATE_COMMENT_VOTE'
+export const TOGGLE_MODAL_WINDOW = 'TOGGLE_MODAL_WINDOW'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const EDIT_POST = 'EDIT_POST'
+export const ADD_POST = 'ADD_POST'
+export const DELETE_POST = 'DELETE_POST'
 
 export function updatePostList (postlist) {
   return {
@@ -28,6 +30,13 @@ export function updateCategoryList (categories) {
   return {
     type: UPDATE_CATEGORY_LIST,
     categories
+  }
+}
+
+export function selectCategory (selectedCategory) {
+  return {
+    type: UPDATE_CATEGORY,
+    selectedCategory
   }
 }
 
@@ -139,5 +148,12 @@ export function addPost (addedPost) {
     return {
       type: ADD_POST,
       addedPost
+    }
+}
+
+export function deletePost (deletedPostId) {
+    return {
+      type: DELETE_POST,
+      deletedPostId
     }
 }

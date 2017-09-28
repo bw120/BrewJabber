@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as helpers from '../utils/helpers'
-import { sortListBy, seachListBy } from '../actions'
+import { sortListBy, seachListBy, selectCategory } from '../actions'
 import { getPosts } from '../actions/thunks'
 import Link from 'react-router-redux-dom-link';
 import sortBy from 'sort-by'
@@ -11,16 +11,23 @@ import escapeRegExp from 'escape-string-regexp'
 class ListPosts extends Component {
 
     componentDidMount = () => {
-        this.props.updateList(this.props.category);
+        this.updatePage(this.props.category);
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.url !== this.props.url) {
-          this.props.updateList(nextProps.category);
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.category !== this.props.category) {
+          this.updatePage(nextProps.category);
         }
     }
 
+    updatePage = (category) => {
+        const cat = (typeof(category) !== "undefined") ? category : "";
+        this.props.updateList(cat);
+        this.props.changeCategory(cat);
+    }
+
     render() {
+
         let postList;
 
         if (this.props.searchquery.length > 0) {
@@ -72,14 +79,14 @@ function mapDispatchToProps (dispatch) {
   return {
     updateList: (data) => dispatch(getPosts(data)),
     changeSortBy: (data) => dispatch(sortListBy(data)),
-    updateQuery: (data) => dispatch(seachListBy(data))
+    updateQuery: (data) => dispatch(seachListBy(data)),
+    changeCategory: (category) => dispatch(selectCategory(category))
   }
 }
 
 function mapStateToProps(state, routingDetails) {
-    const category = routingDetails.match.params.category;
     return {
-        category: category,
+        category: routingDetails.match.params.category,
         url: routingDetails.match.url,
         postlist: state.postList.postlist,
         sortby: state.postList.sortBy,

@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as helpers from '../utils/helpers'
-import { retreivePostDetails, retreiveComments, vote } from '../actions/thunks'
+import { retreivePostDetails, retreiveComments, vote, removePost } from '../actions/thunks'
 import { sortCommentsBy, toggleModalWindow } from '../actions'
+import { push } from 'react-router-redux';
 import sortBy from 'sort-by'
 import Modal from '../components/Modal'
 
@@ -13,6 +14,11 @@ class ShowPostDetails extends Component {
         this.props.getPostDetails(this.props.id);
         this.props.getPostComments(this.props.id);
     };
+
+    deleteThisPost = () => {
+        this.props.deletePost(this.props.postDetails.id);
+        this.props.goToURL("/");
+    }
 
     render() {
         return (
@@ -39,7 +45,7 @@ class ShowPostDetails extends Component {
                                 </span>
                             </div>
                             <div className="post-delete-edit">
-                                <a href="#">Delete</a> | <Link to={`/modifyPost/${this.props.id}`}>Edit</Link>
+                                <a onClick={(e) => { e.preventDefault(); this.deleteThisPost()}}>Delete</a> | <Link to={`/modifyPost/${this.props.id}`}>Edit</Link>
                             </div>
                         </div>
                     </div>
@@ -118,7 +124,9 @@ function mapDispatchToProps (dispatch) {
     getPostComments: (data) => dispatch(retreiveComments(data)),
     goVote: (action, type, id) => dispatch(vote(action, type, id)),
     changeSortBy: (attribute) => dispatch(sortCommentsBy(attribute)),
-    openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component))
+    openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component)),
+    deletePost: (id) => dispatch(removePost(id)),
+    goToURL: (url) => dispatch(push(url)),
   }
 }
 

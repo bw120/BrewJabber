@@ -1,8 +1,10 @@
-import { updatePostList, getPostDetails, getCommentList, apiIsFetchingData, apiReturnedError, updatePostVote, updateCommentVote, deleteComment, toggleModalWindow, addComment, editComment, addPost, editPost} from '../actions'
+import { updatePostList, getPostDetails, getCommentList, apiIsFetchingData,
+    apiReturnedError, updatePostVote, updateCommentVote, deleteComment, toggleModalWindow,
+    addComment, editComment, addPost, editPost, deletePost} from '../actions'
 import * as API from '../utils/api'
 
 export function getPosts(category) {
-    const apiCall = (typeof(category) !== "undefined") ? API.getPostsByCategory : API.getAllPosts;
+    const apiCall = (category.length > 0) ? API.getPostsByCategory : API.getAllPosts;
     return function (dispatch) {
         dispatch(apiIsFetchingData(true));
         return apiCall(category).then((posts) => {
@@ -95,6 +97,17 @@ console.log(id)
             dispatch(apiIsFetchingData(false));
             dispatch(apiReturnedError(false));
             dispatch(action(post, id));
+        }).catch(()=> dispatch(apiReturnedError(true)));
+    };
+}
+
+export function removePost(id) {
+    return function (dispatch) {
+        dispatch(apiIsFetchingData(true));
+        return API.deletePost(id).then((res) => {
+            dispatch(apiIsFetchingData(false));
+            dispatch(apiReturnedError(false));
+            dispatch(deletePost(id));
         }).catch(()=> dispatch(apiReturnedError(true)));
     };
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as API from '../utils/api'
-import { updateCategoryList, openNavMenu } from '../actions'
+import { updateCategoryList, openNavMenu, selectCategory } from '../actions'
 
 class ShowNavBar extends Component {
 
@@ -19,6 +19,11 @@ class ShowNavBar extends Component {
         this.props.activateMenu();
     }
 
+    handleSelectCategory = (category) => {
+        this.props.changeCategory(category);
+        this.props.activateMenu();
+    }
+
     render() {
         return (
           <nav>
@@ -29,7 +34,7 @@ class ShowNavBar extends Component {
                             <span className="category-label hideMobile">Topic: </span>
                             <div className="category-container"><div className="selected-category">
                                 <a href="" onClick={this.toggleMenu}>
-                                    <span className="selected-label hideMobile">Selected Topic</span>
+                                    <span className="selected-label hideMobile">{(this.props.selectedCategory.length > 0)? this.props.selectedCategory : "All Topics"}</span>
                                     <span className="hamburger"></span>
                                 </a>
                             </div>
@@ -37,9 +42,10 @@ class ShowNavBar extends Component {
                             <ul className="categories" onMouseLeave={ this.toggleMenu }>
                                 <li className="category showMobile"><Link className="category-link" to="/modifyPost/">+ Add Post</Link></li>
                                 <li className="category showMobile"><span className="menu-header" >Categories:</span></li>
+                                <li onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory("")} } className="category"><Link className="category-link sub" to={"/"}>All Topics</Link></li>
                                 {
                                     this.props.categories.map((item) => (
-                                        <li key={item.name} onClick={ this.toggleMenu } className="category"><Link className="category-link sub" to={`/category/${item.name}`}>{item.name}</Link></li>
+                                        <li key={item.name} onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory(item.name)} } className="category"><Link className="category-link sub" to={`/category/${item.name}`}>{item.name}</Link></li>
                                     ))
                                 }
                             </ul>)}
@@ -61,14 +67,16 @@ class ShowNavBar extends Component {
 function mapStateToProps(state) {
     return {
         categories: state.navBar.categories,
-        nav: state.navBar.navMenu
+        nav: state.navBar.navMenu,
+        selectedCategory: state.navBar.selectedCategory,
     };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     setCategories: (data) => dispatch(updateCategoryList(data)),
-    activateMenu: () => dispatch(openNavMenu())
+    activateMenu: () => dispatch(openNavMenu()),
+    changeCategory: (category) => dispatch(selectCategory(category))
   }
 }
 

@@ -3,6 +3,7 @@ import { routerReducer } from "react-router-redux";
 import {
     UPDATE_POST_LIST,
     UPDATE_CATEGORY_LIST,
+    UPDATE_CATEGORY,
     OPEN_NAV_MENU,
     SORT_LIST_BY,
     SORT_COMMENTS_BY,
@@ -18,7 +19,8 @@ import {
     EDIT_COMMENT,
     ADD_COMMENT,
     EDIT_POST,
-    ADD_POST
+    ADD_POST,
+    DELETE_POST
 } from '../actions'
 
 const nav_initialState = {
@@ -40,6 +42,12 @@ function navBar(state = nav_initialState, action) {
             return {
                 ...state,
                 navMenu: !state.navMenu
+            }
+        case UPDATE_CATEGORY:
+        const { selectedCategory } = action
+            return {
+                ...state,
+                selectedCategory
             }
         default:
             return state
