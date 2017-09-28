@@ -413,6 +413,13 @@ textarea {
     font-size: 1.2em;
 }
 
+.post-error {
+    text-align: center;
+    margin: 20px;
+    color: #017C82;
+    font-size: 1.5em;
+}
+
 .post-header {
     position: relative;
 }

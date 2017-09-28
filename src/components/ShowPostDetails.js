@@ -21,10 +21,20 @@ class ShowPostDetails extends Component {
     }
 
     render() {
+        console.log(this.props.postDetails.error);;
         return (
             <div className="main-container">
+
             { (this.props.modalWindowOpen) && (<Modal/>) }
                 <div className="post">
+
+
+                { (this.props.postDetails.error) ? (
+                    <div className="post-header">
+                        <div className="post-error">Sorry, your post was not found.</div>
+                    </div>
+                    ) : (
+                    <div>
                     <div className="post-header">
                         <div className="post-back"><button onClick={()=> (this.props.history.goBack())}>Go Back</button></div>
                         <div className="post-title">{ this.props.postDetails.title }</div>
@@ -100,8 +110,10 @@ class ShowPostDetails extends Component {
                     ))}
 
                     </div>
-                </div>
+                    </div>
+                )}
 
+                </div>
             </div>
         )
 
@@ -114,7 +126,8 @@ function mapStateToProps(state, routingDetails) {
         postDetails: state.postDetails.postDetails,
         comments: state.postDetails.comments,
         sortCommentsBy: state.postDetails.sortBy,
-        modalWindowOpen: state.modalWindow.open
+        modalWindowOpen: state.modalWindow.open,
+        // postList: state.postList.postlist
     };
 }
 
