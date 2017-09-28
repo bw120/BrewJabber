@@ -17,10 +17,14 @@ class ModifyPost extends Component {
         }
     }
 
+    //variable to store whether we are updating or creating new Post
+    newPost = false;
+
     checkIfExistingPost = (propsId) => {
         //if no id present it is new post and should set default state
         if (typeof(propsId) === 'undefined') {
             this.setState(this.defaultState);
+            this.newPost = true;
             return;
         }
 
@@ -37,7 +41,7 @@ class ModifyPost extends Component {
 
     defaultState = {
       data: {
-        id: null,
+        id: helpers.createUUID(),
         category: this.props.category,
         timestamp: null,
         title: '',
@@ -54,29 +58,17 @@ class ModifyPost extends Component {
 
     state = this.defaultState;
 
-
-    //variable to store whether we are updating or creating new Post
-    newPost = false;
-
     setInitialData = (id, category, body, author, title, timestamp) => {
 
-      //assign a comment ID if not present and mark this as a new comment
-      let uuid;
-      if (id != null) {
-        uuid = id;
-      } else {
-        uuid = helpers.createUUID();
-        this.newPost = true;
-      }
-
       let data = {
-        id: uuid,
+        id,
         category: category || this.props.category,
         timestamp,
         body: body || "",
         author: author || "",
         title: title || ""
       }
+
       this.setState({data: data});
     }
 
@@ -117,6 +109,7 @@ class ModifyPost extends Component {
     }
 
     render() {
+      console.log(this.state.data);
         return (
           <div className="main-container">
               <div className="post">
