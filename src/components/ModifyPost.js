@@ -38,7 +38,7 @@ class ModifyPost extends Component {
     defaultState = {
       data: {
         id: null,
-        category: '',
+        category: this.props.category,
         timestamp: null,
         title: '',
         body: '',
@@ -71,7 +71,7 @@ class ModifyPost extends Component {
 
       let data = {
         id: uuid,
-        category: category || "",
+        category: category || this.props.category,
         timestamp,
         body: body || "",
         author: author || "",
@@ -117,7 +117,6 @@ class ModifyPost extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
           <div className="main-container">
               <div className="post">
@@ -184,7 +183,8 @@ function mapStateToProps(state, routingDetails) {
     return {
         id: id,
         postDetails: state.postDetails.postDetails,
-        categories: state.navBar.categories
+        categories: state.navBar.categories,
+        category: state.navBar.selectedCategory
     };
 }
 
