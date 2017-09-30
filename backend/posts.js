@@ -11,10 +11,10 @@ const defaultData = {
     author: 'thingtwo',
     category: 'react',
     voteScore: 6,
-    deleted: false 
+    deleted: false
   },
-  "6ni6ok3ym7mf1p33lnez": {
-    id: '6ni6ok3ym7mf1p33lnez',
+  "21657620-9596-11e7-b012-7d616c1bf16f": {
+    id: '21657620-9596-11e7-b012-7d616c1bf16f',
     timestamp: 1468479767190,
     title: 'Learn Redux in 10 minutes!',
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
@@ -22,6 +22,16 @@ const defaultData = {
     category: 'redux',
     voteScore: -5,
     deleted: false
+  },
+    "ada5a7f0-9595-11e7-b594-bb4ce735fe61": {
+    id: "ada5a7f0-9595-11e7-b594-bb4ce735fe61",
+    timestamp: 1468479767190,
+    title: 'This post was deleted',
+    body: 'If you are seeing this post, something is wrong. It was supposed to be filtered out.',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: -5,
+    deleted: true
   }
 }
 
@@ -46,7 +56,7 @@ function get (token, id) {
   return new Promise((res) => {
     const posts = getData(token)
     res(
-      posts[id].deleted 
+      posts[id].deleted
         ? {}
         : posts[id]
     )
@@ -65,7 +75,7 @@ function getAll (token) {
 function add (token, post) {
   return new Promise((res) => {
     let posts = getData(token)
-    
+
     posts[post.id] = {
       id: post.id,
       timestamp: post.timestamp,
@@ -76,7 +86,7 @@ function add (token, post) {
       voteScore: 1,
       deleted: false
     }
-     
+
     res(posts[post.id])
   })
 }

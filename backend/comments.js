@@ -11,7 +11,7 @@ const defaultData = {
     author: 'thingtwo',
     voteScore: 6,
     deleted: false,
-    parentDeleted: false 
+    parentDeleted: false
   },
   "8tu4bsun805n8un48ve89": {
     id: '8tu4bsun805n8un48ve89',
@@ -21,6 +21,16 @@ const defaultData = {
     author: 'thingone',
     voteScore: -5,
     deleted: false,
+    parentDeleted: false
+  },
+  "8tu4bsun805n8un48sd89": {
+    id: '8tu4bsun805n8un48sd89',
+    parentId: "8xf0y6ziyjabvozdd253nd",
+    timestamp: 1467479767190,
+    body: 'Deleted comments Are Cool. Just not when they show up when they are not supposed to.',
+    author: 'thingone',
+    voteScore: -5,
+    deleted: true,
     parentDeleted: false
   }
 }
@@ -42,13 +52,20 @@ function getByParent (token, parentId) {
   })
 }
 
+function getAll (token) {
+  return new Promise((res) => {
+    let comments = getData(token)
+    res(comments)
+  })
+}
+
 function get (token, id) {
   return new Promise((res) => {
     const comments = getData(token)
     res(
       comments[id].deleted || comments[id].parentDeleted
         ? {}
-        : comments[id]      
+        : comments[id]
       )
   })
 }
@@ -67,7 +84,7 @@ function add (token, comment) {
       deleted: false,
       parentDeleted: false
     }
-     
+
     res(comments[comment.id])
   })
 }
@@ -124,6 +141,7 @@ module.exports = {
   add,
   vote,
   disableByParent,
+  getAll,
   disable,
   edit
 }
