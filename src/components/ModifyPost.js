@@ -12,7 +12,8 @@ class ModifyPost extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.id !== this.props.id) {
+
+        if (nextProps.postDetails !== this.props.postDetails) {
             this.checkIfExistingPost(nextProps.id);
         }
     }
@@ -29,7 +30,7 @@ class ModifyPost extends Component {
         }
 
         //confirm if post data is already in state. If not get it
-        if (this.props.postDetails.id !== propsId) {
+        if (typeof(this.props.postDetails.id) === 'undefined') {
             this.props.getPostDetails(propsId);
         }
 
@@ -109,7 +110,6 @@ class ModifyPost extends Component {
     }
 
     render() {
-      console.log(this.state.data);
         return (
           <div className="main-container">
               <div className="post">
