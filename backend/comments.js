@@ -55,7 +55,9 @@ function getByParent (token, parentId) {
 function getAll (token) {
   return new Promise((res) => {
     let comments = getData(token)
-    res(comments)
+    let keys = Object.keys(comments)
+    filtered_keys = keys.filter(key => !comments[key].deleted)
+    res(filtered_keys.map(key => comments[key]))
   })
 }
 
