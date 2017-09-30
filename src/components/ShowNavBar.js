@@ -40,18 +40,18 @@ class ShowNavBar extends Component {
                             </div>
                             { this.props.nav && (
                             <ul className="categories" onMouseLeave={ this.toggleMenu }>
-                                <li className="category showMobile"><Link className="category-link" to="/modifyPost/">+ Add Post</Link></li>
+                                <li className="category showMobile"><Link className="category-link" to="/editPost/">+ Add Post</Link></li>
                                 <li className="category showMobile"><span className="menu-header" >Categories:</span></li>
                                 <li onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory("")} } className="category"><Link className="category-link sub" to={"/"}>All Topics</Link></li>
                                 {
                                     this.props.categories.map((item) => (
-                                        <li key={item.name} onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory(item.name)} } className="category"><Link className="category-link sub" to={`/category/${item.name}`}>{item.name}</Link></li>
+                                        <li key={item.name} onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory(item.name)} } className="category"><Link className="category-link sub" to={`/${item.name}`}>{item.name}</Link></li>
                                     ))
                                 }
                             </ul>)}
                             </div>
                         </div>
-                        <div className="addPost hideMobile"><Link to="/modifyPost/">+ Add Post</Link></div>
+                        <div className="addPost hideMobile"><Link to="/editPost/">+ Add Post</Link></div>
                     </div>
 
 

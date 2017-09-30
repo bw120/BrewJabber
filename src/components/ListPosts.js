@@ -21,15 +21,19 @@ class ListPosts extends Component {
     }
 
     updatePage = (category) => {
+        //use empty string if category is undefined (when navigating to root)
         const cat = (typeof(category) !== "undefined") ? category : "";
-        this.props.updateList(cat);
+        //If navigating to category view from url rather than UI, update category
         this.props.changeCategory(cat);
+
+        //get posts for the selected category
+        this.props.updateList(cat);
     }
 
     render() {
 
+        //filter post list to show only those based on search input
         let postList;
-
         if (this.props.searchquery.length > 0) {
             let match = new RegExp(escapeRegExp(this.props.searchquery), 'i');
             postList = this.props.postlist.filter((post) => match.test(post.title));
@@ -37,6 +41,7 @@ class ListPosts extends Component {
         } else {
             postList = this.props.postlist;
         }
+
         return (
             <div className="main-container">
                 <div className="list-header">
@@ -55,8 +60,9 @@ class ListPosts extends Component {
                     </div>
                 </div>
                 {
+                    //order list based value in dropdown list and remove any deleted posts.
                     postList.sort(sortBy(this.props.sortby)).filter((item) => (!item.deleted)).map((item) => (
-                        <Link key={item.id} className="card-link" to={`/post/${item.id}`}>
+                        <Link key={item.id} className="card-link" to={`/${item.category}/${item.id}`}>
                             <div className="card">
                                 <div className="card-content">
                                     <div className="vote-score">

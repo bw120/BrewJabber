@@ -18,10 +18,10 @@ export function getPosts(category) {
 export function retreivePostDetails(id) {
     return function (dispatch) {
         dispatch(apiIsFetchingData(true));
-        return API.getPostDetails(id).then((detials) => {
+        return API.getPostDetails(id).then((details) => {
             dispatch(apiIsFetchingData(false));
             dispatch(apiReturnedError(false));
-            dispatch(getPostDetails(detials));
+            dispatch(getPostDetails(details));
         }).catch(()=> dispatch(apiReturnedError(true)));
     };
 }

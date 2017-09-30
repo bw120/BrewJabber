@@ -21,7 +21,8 @@ class ShowPostDetails extends Component {
     }
 
     render() {
-        console.log(this.props.postDetails.error);;
+        console.log("post details ", this.props.postDetails.category);
+        console.log("category ", this.props.category);
         return (
             <div className="main-container">
 
@@ -29,7 +30,7 @@ class ShowPostDetails extends Component {
                 <div className="post">
 
 
-                { (this.props.postDetails.error) ? (
+                { (this.props.postDetails.error || this.props.category !== this.props.postDetails.category) ? (
                     <div className="post-header">
                         <div className="post-error">Sorry, your post was not found.</div>
                     </div>
@@ -112,11 +113,9 @@ class ShowPostDetails extends Component {
                     </div>
                     </div>
                 )}
-
                 </div>
             </div>
         )
-
     };
 };
 
@@ -127,7 +126,7 @@ function mapStateToProps(state, routingDetails) {
         comments: state.postDetails.comments,
         sortCommentsBy: state.postDetails.sortBy,
         modalWindowOpen: state.modalWindow.open,
-        // postList: state.postList.postlist
+        category: routingDetails.match.params.category
     };
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/App.css';
-import { Route } from 'react-router-dom'
+import { Route , Switch } from 'react-router-dom'
 import ShowPostDetails from './ShowPostDetails';
 import ListPosts from './ListPosts';
 import ModifyPost from './ModifyPost';
@@ -14,24 +14,25 @@ class App extends Component {
         <div>
           <ShowNavBar/>
           <main>
-
+            <Switch>
 
               {/* Main page route - list all posts */}
 
               <Route exact path="/" component={ ListPosts }/>
 
+              {/* Modify post route */}
+
+              <Route path="/editPost/:id?" component={ ModifyPost } />
+
               {/* Category route  - list posts for category */}
 
-              <Route exact path="/category/:category?" component={ ListPosts } />
+              <Route exact path="/:category" component={ ListPosts } />
 
               {/* Post details route */}
 
-              <Route exact path="/post/:id?" component={ ShowPostDetails } />
+              <Route exact path="/:category/:id" component={ ShowPostDetails } />
 
-              {/* Modify post route */}
-
-              <Route exact path="/modifyPost/:id?" component={ ModifyPost } />
-
+            </Switch>
 
           </main>
         </div>
