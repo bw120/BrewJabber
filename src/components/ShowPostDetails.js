@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as helpers from '../utils/helpers'
-import { retreivePostDetails, retreiveComments, vote, removePost } from '../actions/thunks'
+import { retreivePostDetails, retreiveAllComments, vote, removePost } from '../actions/thunks'
 import { sortCommentsBy, toggleModalWindow } from '../actions'
 import { push } from 'react-router-redux';
 import sortBy from 'sort-by'
@@ -11,26 +11,38 @@ import Modal from '../components/Modal'
 class ShowPostDetails extends Component {
 
     componentDidMount = () => {
-        this.props.getPostDetails(this.props.id);
+        const thisPost = this.getThisPost();
+        if (typeof(thisPost) === "undefined") {
+            this.props.getPostDetails(this.props.id);
+        }
+
         this.props.getPostComments(this.props.id);
     };
 
-    deleteThisPost = () => {
-        this.props.deletePost(this.props.postDetails.id);
+    deleteThisPost = (id) => {
+        this.props.deletePost(id);
         this.props.goToURL("/");
     }
 
+    getThisPost = () => {
+        return this.props.postList.filter((item) => (item.id === this.props.id))[0];
+    }
+
     render() {
-        console.log("post details ", this.props.postDetails.category);
-        console.log("category ", this.props.category);
+
+        //get details for current post
+        const post = this.getThisPost();
+
+        //filter and sort comments
+        const filteredComments = this.props.comments.filter((item) => (item.parentId === post.id)).sort(sortBy(this.props.sortCommentsBy));
+
         return (
             <div className="main-container">
-
             { (this.props.modalWindowOpen) && (<Modal/>) }
                 <div className="post">
 
 
-                { (this.props.postDetails.error || this.props.category !== this.props.postDetails.category) ? (
+                { (typeof(post) === "undefined") ? (
                     <div className="post-header">
                         <div className="post-error">Sorry, your post was not found.</div>
                     </div>
@@ -38,34 +50,34 @@ class ShowPostDetails extends Component {
                     <div>
                     <div className="post-header">
                         <div className="post-back"><button onClick={()=> (this.props.history.goBack())}>Go Back</button></div>
-                        <div className="post-title">{ this.props.postDetails.title }</div>
+                        <div className="post-title">{ post.title }</div>
                         <div className="post-attributes">
-                            <span className="post-author">&ndash;{this.props.postDetails.author}</span>,&nbsp;
-                            <span className="post-date">{helpers.formatDate(this.props.postDetails.timestamp)}</span>
+                            <span className="post-author">&ndash;{post.author}</span>,&nbsp;
+                            <span className="post-date">{helpers.formatDate(post.timestamp)}</span>
                         </div>
                         <div className="post-controls">
                             <div className="post-rating">
-                                <span className="bold-item">Rating:</span> { this.props.postDetails.voteScore }
+                                <span className="bold-item">Rating:</span> { post.voteScore }
                                 <span className="vote-buttons">
-                                    <a className="vote-button" onClick={(e) => { e.preventDefault(); this.props.goVote("upVote", "post", this.props.postDetails.id)}}>
+                                    <a className="vote-button" onClick={(e) => { e.preventDefault(); this.props.goVote("upVote", "post", post.id)}}>
                                         <i className="fa fa-thumbs-up" aria-hidden="true"></i>
                                     </a>
-                                    <a className="vote-button" onClick={(e) => { e.preventDefault();this.props.goVote("downVote", "post", this.props.postDetails.id)}}>
+                                    <a className="vote-button" onClick={(e) => { e.preventDefault();this.props.goVote("downVote", "post", post.id)}}>
                                         <i className="fa fa-thumbs-down" aria-hidden="true"> </i>
                                     </a>
                                 </span>
                             </div>
                             <div className="post-delete-edit">
-                                <a onClick={(e) => { e.preventDefault(); this.deleteThisPost()}}>Delete</a> | <Link to={`/modifyPost/${this.props.id}`}>Edit</Link>
+                                <a onClick={(e) => { e.preventDefault(); this.deleteThisPost(post.id)}}>Delete</a> | <Link to={`/editPost/${this.props.id}`}>Edit</Link>
                             </div>
                         </div>
                     </div>
                     <div className="post-body">
-                        { this.props.postDetails.body }
+                        { post.body }
                     </div>
                     <div className="post-comments">
                         <div className="comments-section-header">
-                            <div className="comments-section-title">{ this.props.comments.length } Comments</div>
+                            <div className="comments-section-title">{ filteredComments.length } Comments</div>
                             <div className="comments-section-control">
                                 <div className="comments-section-sorter">
                                     <div className="sorter">Sort by:&nbsp;
@@ -81,7 +93,7 @@ class ShowPostDetails extends Component {
                             </div>
                         </div>
 
-                    {this.props.comments.sort(sortBy(this.props.sortCommentsBy)).map((item) => (
+                    {filteredComments.map((item) => (
                         <div key={item.id} className="comment-item">
                             <div className="comment-body">
                                 {item.body}
@@ -114,6 +126,7 @@ class ShowPostDetails extends Component {
                     </div>
                 )}
                 </div>
+
             </div>
         )
     };
@@ -122,9 +135,9 @@ class ShowPostDetails extends Component {
 function mapStateToProps(state, routingDetails) {
     return {
         id: routingDetails.match.params.id,
-        postDetails: state.postDetails.postDetails,
-        comments: state.postDetails.comments,
-        sortCommentsBy: state.postDetails.sortBy,
+        postList: state.postList.postlist,
+        comments: state.comments.commentList,
+        sortCommentsBy: state.comments.sortBy,
         modalWindowOpen: state.modalWindow.open,
         category: routingDetails.match.params.category
     };
@@ -133,7 +146,7 @@ function mapStateToProps(state, routingDetails) {
 function mapDispatchToProps (dispatch) {
   return {
     getPostDetails: (data) => dispatch(retreivePostDetails(data)),
-    getPostComments: (data) => dispatch(retreiveComments(data)),
+    getPostComments: (data) => dispatch(retreiveAllComments(data)),
     goVote: (action, type, id) => dispatch(vote(action, type, id)),
     changeSortBy: (attribute) => dispatch(sortCommentsBy(attribute)),
     openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component)),

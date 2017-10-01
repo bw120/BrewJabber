@@ -1,4 +1,4 @@
-import { updatePostList, getPostDetails, getCommentList, apiIsFetchingData,
+import { updatePostList, getPostDetails, getCommentList, getAllCommentList, apiIsFetchingData,
     apiReturnedError, updatePostVote, updateCommentVote, deleteComment, toggleModalWindow,
     addComment, editComment, addPost, editPost, deletePost} from '../actions'
 import * as API from '../utils/api'
@@ -26,13 +26,26 @@ export function retreivePostDetails(id) {
     };
 }
 
-export function retreiveComments(id) {
+//get comments for current post
+// export function retreiveComments(id) {
+//     return function (dispatch) {
+//         dispatch(apiIsFetchingData(true));
+//         return API.getCommentsForPost(id).then((comments) => {
+//             dispatch(apiIsFetchingData(false));
+//             dispatch(apiReturnedError(false));
+//             dispatch(getAllCommentList(comments));
+//         }).catch(()=> dispatch(apiReturnedError(true)));
+//     };
+// }
+
+//get comments for all posts
+export function retreiveAllComments() {
     return function (dispatch) {
         dispatch(apiIsFetchingData(true));
-        return API.getCommentsForPost(id).then((comments) => {
+        return API.getAllComments().then((comments) => {
             dispatch(apiIsFetchingData(false));
             dispatch(apiReturnedError(false));
-            dispatch(getCommentList(comments));
+            dispatch(getAllCommentList(comments));
         }).catch(()=> dispatch(apiReturnedError(true)));
     };
 }
@@ -64,7 +77,9 @@ export function removeComment(id) {
         return API.deleteComment(id).then((res) => {
             dispatch(apiIsFetchingData(false));
             dispatch(apiReturnedError(false));
+                        console.log("remove");
             dispatch(deleteComment(id));
+
             dispatch(toggleModalWindow(false));
         }).catch(()=> dispatch(apiReturnedError(true)));
     };
@@ -77,7 +92,6 @@ export function editOrAddComment(comment, id) {
         dispatch(apiIsFetchingData(true));
         return apiCall(comment, id).then((res) => {
             dispatch(toggleModalWindow(false));
-            console.log(res);
             dispatch(apiIsFetchingData(false));
             dispatch(apiReturnedError(false));
             dispatch(action(comment, id));
@@ -88,12 +102,10 @@ export function editOrAddComment(comment, id) {
 export function editOrAddPost(post, id) {
     const apiCall = (id)? API.editPost : API.createPost;
     const action = (id)? editPost : addPost;
-console.log(id)
     return function (dispatch) {
         dispatch(apiIsFetchingData(true));
         return apiCall(post, id).then((res) => {
             dispatch(toggleModalWindow(false));
-            console.log(res);
             dispatch(apiIsFetchingData(false));
             dispatch(apiReturnedError(false));
             dispatch(action(post, id));

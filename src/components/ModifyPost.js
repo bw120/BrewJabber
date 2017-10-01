@@ -12,8 +12,7 @@ class ModifyPost extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-
-        if (nextProps.postDetails !== this.props.postDetails) {
+        if (typeof(postDetails) === 'undefined') {
             this.checkIfExistingPost(nextProps.id);
         }
     }
@@ -22,6 +21,9 @@ class ModifyPost extends Component {
     newPost = false;
 
     checkIfExistingPost = (propsId) => {
+
+      const postDetails = this.getThisPost();
+
         //if no id present it is new post and should set default state
         if (typeof(propsId) === 'undefined') {
             this.setState(this.defaultState);
@@ -30,14 +32,18 @@ class ModifyPost extends Component {
         }
 
         //confirm if post data is already in state. If not get it
-        if (typeof(this.props.postDetails.id) === 'undefined') {
+        if (typeof(postDetails) === 'undefined') {
             this.props.getPostDetails(propsId);
         }
 
         //set initial data based on data in store
-        let { id, category, body, author, title, timestamp } = this.props.postDetails || "";
+        let { id, category, body, author, title, timestamp } = postDetails || "";
         this.setInitialData(id, category, body, author, title, timestamp);
 
+    }
+
+    getThisPost = () => {
+        return this.props.postList.filter((item) => (item.id === this.props.id))[0];
     }
 
     defaultState = {
@@ -175,7 +181,7 @@ function mapStateToProps(state, routingDetails) {
     const id = routingDetails.match.params.id;
     return {
         id: id,
-        postDetails: state.postDetails.postDetails,
+        postList: state.postList.postlist,
         categories: state.navBar.categories,
         category: state.navBar.selectedCategory
     };

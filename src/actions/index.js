@@ -5,7 +5,7 @@ export const OPEN_NAV_MENU = 'OPEN_NAV_MEN'
 export const SORT_LIST_BY = 'SORT_LIST_BY'
 export const SORT_COMMENTS_BY = 'SORT_COMMENTS_BY'
 export const SEARCH_LIST_BY = 'SEARCH_LIST_BY'
-export const GET_POST_DETAILS = 'GET_POST_DETAILS'
+export const ADD_TO_POST_LIST = 'ADD_TO_POST_LIST'
 export const GET_COMMENT_LIST = 'GET_COMMENT_LIST'
 export const API_RETURNED_ERROR = 'API_RETURNED_ERROR'
 export const API_FETCHING_DATA = 'API_FETCHING_DATA'
@@ -18,6 +18,7 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_POST = 'EDIT_POST'
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
+export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS'
 
 export function updatePostList (postlist) {
   return {
@@ -69,15 +70,22 @@ export function seachListBy (query) {
 
 export function getPostDetails (postDetails) {
     return {
-        type: GET_POST_DETAILS,
+        type: ADD_TO_POST_LIST,
         postDetails
     }
 }
 
-export function getCommentList (comments) {
+// export function getCommentList (comments) {
+//     return {
+//         type: GET_COMMENT_LIST,
+//         comments
+//     }
+// }
+
+export function getAllCommentList (allComments) {
     return {
-        type: GET_COMMENT_LIST,
-        comments
+      type: GET_ALL_COMMENTS,
+      allComments
     }
 }
 
