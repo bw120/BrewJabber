@@ -59,11 +59,12 @@ class ListPosts extends Component {
         } else {
             postList = this.props.postlist;
         }
-
+console.log(this.props.category);
+console.log(this.props.categoryList.filter((item) => (this.props.category === item.path)));
         return (
             <div className="main-container">
             { (this.props.modalWindowOpen) && (<Modal/>) }
-            { ( typeof(this.props.category) !== "undefined" && this.props.categoryList.filter((item) => (this.props.category === item.name)).length < 1) ? (
+            { ( typeof(this.props.category) !== "undefined" && this.props.categoryList.filter((item) => (this.props.category === item.path)).length < 1) ? (
                 <div className="post">
                     <div className="post-header">
                         <div className="post-error">Sorry, that topic does not exist.</div>
@@ -110,7 +111,7 @@ class ListPosts extends Component {
 
                                         </div>
                                         <div className="title"><Link to={`/${item.category}/${item.id}`}>{item.title}</Link></div>
-                                        <div className="author">{item.author}</div>
+                                        <div className="author">{item.author}</div>&nbsp;
                                         <div className="comments">{ (comments[item.id]) ? comments[item.id].length : 0 }comments</div>
                                         <div className="date">{ helpers.formatDate(item.timestamp) }</div>
                                         <div className="buttons"><a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "", item.id, "deletePost")}}>Delete</a> | <Link to={`/editPost/${item.id}`}>Edit</Link></div>

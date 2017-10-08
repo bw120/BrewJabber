@@ -47,7 +47,7 @@ class ShowNavBar extends Component {
                                 <li onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory("")} } className="category"><Link className="category-link sub" to={"/"}>All Topics</Link></li>
                                 {
                                     this.props.categories.map((item) => (
-                                        <li key={item.name} onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory(item.name)} } className="category"><Link className="category-link sub" to={`/${item.name}`}>{item.name}</Link></li>
+                                        <li key={item.name} onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory(item.name)} } className="category"><Link className="category-link sub" to={`/${item.path}`}>{item.name}</Link></li>
                                     ))
                                 }
                             </ul>)}

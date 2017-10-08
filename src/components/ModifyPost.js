@@ -178,7 +178,7 @@ class ModifyPost extends Component {
                                   <option value=""> Select a catetory </option>
                                   {
                                       this.props.categories.map((item) => (
-                                          <option key={item.path} value={item.name}>{item.name}</option>
+                                          <option key={item.path} value={item.path}>{item.name}</option>
                                           )
                                       )
                                   }

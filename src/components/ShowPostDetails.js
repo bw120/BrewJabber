@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as helpers from '../utils/helpers'
-import { retreivePostDetails, retreiveAllComments, vote, removePost } from '../actions/thunks'
+import { retreivePostDetails, retreiveAllComments, vote } from '../actions/thunks'
 import { sortCommentsBy, toggleModalWindow, setCurrentPost } from '../actions'
 import { push } from 'react-router-redux';
 import sortBy from 'sort-by'
