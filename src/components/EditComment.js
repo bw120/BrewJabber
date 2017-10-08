@@ -89,7 +89,6 @@ class EditComment extends Component {
     }
 
     render() {
-      console.log(this.props.postID);
       const { author, body } = this.state.data;
         return (
             <div className="edit-comment-item">

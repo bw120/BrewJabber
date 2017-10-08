@@ -174,7 +174,6 @@ function comments(state = comments_initialState, action) {
             }
         case ADD_COMMENT:
             const { addedComment } = action;
-            console.log(addedComment);
             return {
                 ...state,
                 commentList: state.commentList.concat([addedComment])

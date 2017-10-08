@@ -133,7 +133,7 @@ class ModifyPost extends Component {
         }
 
         //Was able to get data from state or API
-        if (this.hasPostDetails) {
+        if (this.hasPostDetails || this.newPost) {
             canDisplayPost = true;
             errorMsg = "";
         }

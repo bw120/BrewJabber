@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { toggleModalWindow } from '../actions'
 import DeleteComment from '../components/DeleteComment'
+import DeletePost from '../components/DeletePost'
 import EditComment from '../components/EditComment'
 
 class Modal extends Component {
@@ -23,7 +24,19 @@ class Modal extends Component {
                       <a className="modal-close" onClick={(e) => { e.preventDefault(); this.props.close(false);}}>X</a>
                     </div>
                     <div className="modal-content">
-                      { (this.props.component === "delete") ? (<DeleteComment/>) : (<EditComment/>)}
+                      {
+                        (() => {switch (this.props.component) {
+                          case "deleteComment":
+                              return <DeleteComment />
+                          case "editComment":
+                              return <EditComment />
+                          case "deletePost":
+                              return <DeletePost />
+                          default:
+                              return <div>Sorry, an error occured</div>
+                          }
+                        })()
+                    }
                     </div>
                 </div>
             </div>

@@ -19,11 +19,6 @@ class ShowPostDetails extends Component {
         this.props.getPostComments(this.props.id);
     };
 
-    deleteThisPost = (id) => {
-        this.props.deletePost(id);
-        this.props.goToURL("/");
-    }
-
     thisPost = () => {
         return this.props.postList.filter((item) => (item.id === this.props.id))[0];
     }
@@ -87,7 +82,7 @@ class ShowPostDetails extends Component {
                                 </span>
                             </div>
                             <div className="post-delete-edit">
-                                <a onClick={(e) => { e.preventDefault(); this.deleteThisPost(post.id)}}>Delete</a> | <Link to={`/editPost/${this.props.id}`}>Edit</Link>
+                                <a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "", post.id, "deletePost")}}>Delete</a> | <Link to={`/editPost/${this.props.id}`}>Edit</Link>
                             </div>
                         </div>
                     </div>
@@ -108,7 +103,7 @@ class ShowPostDetails extends Component {
                                         </select>
                                     </div>
                                 </div>
-                                <a className="comments-section-add" onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "Edit Comment", null, "edit")}}>+ Add Comment</a>
+                                <a className="comments-section-add" onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "Edit Comment", null, "editComment")}}>+ Add Comment</a>
                             </div>
                         </div>
 
@@ -134,8 +129,8 @@ class ShowPostDetails extends Component {
                                         </span>
                                 </div>
                                 <div className="comment-delete-edit">
-                                    <a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "", item.id, "delete")}}>Delete</a> |
-                                    <a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "Edit Comment", item.id, "edit")}}>Edit</a>
+                                    <a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "", item.id, "deleteComment")}}>Delete</a> |
+                                    <a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "Edit Comment", item.id, "editComment")}}>Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +165,6 @@ function mapDispatchToProps (dispatch) {
     goVote: (action, type, id) => dispatch(vote(action, type, id)),
     changeSortBy: (attribute) => dispatch(sortCommentsBy(attribute)),
     openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component)),
-    deletePost: (id) => dispatch(removePost(id)),
     goToURL: (url) => dispatch(push(url)),
     setPostID: (id) => dispatch(setCurrentPost(id))
   }

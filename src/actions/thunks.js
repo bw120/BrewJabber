@@ -67,7 +67,6 @@ export function removeComment(id) {
 }
 
 export function editOrAddComment(comment, id) {
-    console.log("I Thunk");
     const apiCall = (id)? API.editComment : API.addComment;
     const action = (id)? editComment : addComment;
     return function (dispatch) {
@@ -90,6 +89,7 @@ export function editOrAddPost(post, id) {
 export function removePost(id) {
     return function (dispatch) {
         return API.deletePost(id).then((res) => {
+            dispatch(toggleModalWindow(false));
             dispatch(deletePost(id));
         })
     };

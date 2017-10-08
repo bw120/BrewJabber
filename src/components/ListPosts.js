@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as helpers from '../utils/helpers'
-import { sortListBy, seachListBy, selectCategory } from '../actions'
+import { sortListBy, seachListBy, selectCategory, toggleModalWindow } from '../actions'
 import { getPosts, retreiveAllComments, vote, removePost } from '../actions/thunks'
 import Link from 'react-router-redux-dom-link';
 import { push } from 'react-router-redux';
 import sortBy from 'sort-by';
 import escapeRegExp from 'escape-string-regexp';
+import Modal from '../components/Modal'
 
 class ListPosts extends Component {
 
@@ -61,6 +62,7 @@ class ListPosts extends Component {
 
         return (
             <div className="main-container">
+            { (this.props.modalWindowOpen) && (<Modal/>) }
             { ( typeof(this.props.category) !== "undefined" && this.props.categoryList.filter((item) => (this.props.category === item.name)).length < 1) ? (
                 <div className="post">
                     <div className="post-header">
@@ -111,7 +113,7 @@ class ListPosts extends Component {
                                         <div className="author">{item.author}</div>
                                         <div className="comments">{ (comments[item.id]) ? comments[item.id].length : 0 }comments</div>
                                         <div className="date">{ helpers.formatDate(item.timestamp) }</div>
-                                        <div className="buttons"><a onClick={(e) => { e.preventDefault(); this.deletePost(item.id)}}>Delete</a> | <Link to={`/editPost/${item.id}`}>Edit</Link></div>
+                                        <div className="buttons"><a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "", item.id, "deletePost")}}>Delete</a> | <Link to={`/editPost/${item.id}`}>Edit</Link></div>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +136,7 @@ function mapDispatchToProps (dispatch) {
     goVote: (action, type, id) => dispatch(vote(action, type, id)),
     deletePost: (id) => dispatch(removePost(id)),
     goToURL: (url) => dispatch(push(url)),
+    openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component)),
   }
 }
 
@@ -145,7 +148,8 @@ function mapStateToProps(state, routingDetails) {
         postlist: state.postList.postlist,
         sortby: state.postList.sortBy,
         searchquery: state.postList.searchQuery,
-        comments: state.comments.commentList
+        comments: state.comments.commentList,
+        modalWindowOpen: state.modalWindow.open,
     };
 }
 
