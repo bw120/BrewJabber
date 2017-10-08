@@ -11,13 +11,13 @@ The backend server was updated with a new endpoint to allow it to retreive all c
 
 ### Setup the backend server
 - Clone or download the repository from GitHub
-- go to the readable/backend directory in the terminal/prompt.
+- go to the backend directory in the terminal/prompt.
 - Run the command `npm install`
 - When that is done, run the command `npm start`
 - This should run a local server on port 5001
 
 ### Setup the front end
-- Open up a comand terminal/prompt and go to the "readable" directory within the repository.
+- Open up a comand terminal/prompt and go to the top level directory within the repository.
 - Run the command `npm install`
 - When that is done, run the command `npm start`
 - This should run start a local web server and open a web browser window to the page. If it doesn't open a browser window, you can go to the following url `http://localhost:3000/`
