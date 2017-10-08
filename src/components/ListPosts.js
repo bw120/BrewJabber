@@ -22,6 +22,7 @@ class ListPosts extends Component {
         }
     }
 
+    //Update the current selected category and get posts for that category
     updatePageCategory = (category) => {
         //use empty string if category is undefined (when navigating to root)
         const cat = (typeof(category) !== "undefined") ? category : "";
@@ -32,6 +33,8 @@ class ListPosts extends Component {
         this.props.updateList(cat);
     }
 
+    //sorts comment lists so they are accessible by using
+    //the post ID as key. This will make it easier to get comment counts for each post.
     sortCommentsByPost = (comments) => {
         let sortedComments = {};
         comments.forEach((item) => {
@@ -62,9 +65,14 @@ class ListPosts extends Component {
 
         return (
             <div className="main-container">
-            { (this.props.modalWindowOpen) && (<Modal/>) }
+            {
+                //Modal window component used for confirming if a post should be deleted
+                (this.props.modalWindowOpen) && (<Modal/>)
+            }
 
-            { ( typeof(this.props.category) !== "undefined" && this.props.categoryList.filter((item) => (this.props.category === item.path)).length < 1) ? (
+            {
+                //Error message if the category is not found
+                ( typeof(this.props.category) !== "undefined" && this.props.categoryList.filter((item) => (this.props.category === item.path)).length < 1) ? (
                 <div className="post">
                     <div className="post-header">
                         <div className="post-error">Sorry, that topic does not exist.</div>

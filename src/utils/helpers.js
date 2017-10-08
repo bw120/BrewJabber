@@ -1,6 +1,7 @@
 //Create unique IDs
 const uuid = require('uuid/v1');
 
+//Creates id used for posts or comments
 export const createUUID = () => {
     return uuid();
 }

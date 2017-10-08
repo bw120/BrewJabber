@@ -6,13 +6,13 @@ import DeletePost from '../components/DeletePost'
 import EditComment from '../components/EditComment'
 
 class Modal extends Component {
-  componentDidMount() {
-    document.body.classList.toggle('noscroll');
-  }
+    componentDidMount() {
+        document.body.classList.toggle('noscroll');
+    }
 
-  componentWillUnmount() {
-    document.body.classList.toggle('noscroll');
-  }
+    componentWillUnmount() {
+        document.body.classList.toggle('noscroll');
+    }
 
 
     render() {
@@ -44,22 +44,22 @@ class Modal extends Component {
     };
 };
 
-function mapDispatchToProps (dispatch) {
-  return {
-    close: (data)=> dispatch(toggleModalWindow(data))
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        close: (data) => dispatch(toggleModalWindow(data))
+    }
 }
 
 function mapStateToProps(state, routingDetails) {
     return {
-      title: state.modalWindow.title,
-      component: state.modalWindow.component,
-      itemID: state.modalWindow.itemId
+        title: state.modalWindow.title,
+        component: state.modalWindow.component,
+        itemID: state.modalWindow.itemId
 
     };
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Modal);

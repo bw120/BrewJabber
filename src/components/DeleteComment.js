@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { toggleModalWindow } from '../actions'
 import { removeComment } from '../actions/thunks'
 
 
@@ -16,21 +15,19 @@ class DeleteComment extends Component {
     };
 };
 
-function mapDispatchToProps (dispatch) {
-  return {
-    delete: (id)=> dispatch(removeComment(id))
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        delete: (id) => dispatch(removeComment(id))
+    }
 }
 
 function mapStateToProps(state, routingDetails) {
     return {
-      itemID: state.modalWindow.itemId
-
+        itemID: state.modalWindow.itemId
     };
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(DeleteComment);
-

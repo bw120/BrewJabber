@@ -13,7 +13,7 @@ class ModifyPost extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps !== this.props) {
-          this.checkIfExistingPost(nextProps.id);
+            this.checkIfExistingPost(nextProps.id);
         }
     }
 
@@ -22,8 +22,8 @@ class ModifyPost extends Component {
     hasPostDetails = false;
 
     checkIfExistingPost = (propsId) => {
-      const postDetails = this.thisPost(this.props.postList);
-      this.hasPostDetails = (typeof(postDetails) !== 'undefined') ? true : false;
+        const postDetails = this.thisPost(this.props.postList);
+        this.hasPostDetails = (typeof(postDetails) !== 'undefined') ? true : false;
 
         //if no id present it is new post and should set default state
         if (typeof(propsId) === 'undefined') {
@@ -32,7 +32,7 @@ class ModifyPost extends Component {
             return;
         }
 
-        //confirm if post data is already in state. If not get it
+        //Get data from API if API not already try fetching it
         if (typeof(postDetails) === 'undefined' && !this.props.apiStatus.isFetching && !this.props.apiStatus.error) {
             this.props.getPostDetails(propsId);
         }
@@ -43,80 +43,87 @@ class ModifyPost extends Component {
 
     }
 
+    //pull the data for this post out of the post list. Returns undefined if not there
     thisPost = (list) => {
         return list.filter((item) => (item.id === this.props.id))[0];
     }
 
     defaultState = {
-      data: {
-        id: helpers.createUUID(),
-        category: this.props.category,
-        timestamp: null,
-        title: '',
-        body: '',
-        author: ''
-      },
-      valid: {
-        author: true,
-        body: true,
-        title: true,
-        category: true,
-      }
+        data: {
+            id: helpers.createUUID(),
+            category: this.props.category,
+            timestamp: null,
+            title: '',
+            body: '',
+            author: ''
+        },
+        valid: {
+            author: true,
+            body: true,
+            title: true,
+            category: true,
+        }
     }
 
     state = this.defaultState;
 
+    //merges data into state for controlled components
     setInitialData = (id, category, body, author, title, timestamp) => {
 
-      let data = {
-        id,
-        category: category || this.props.category,
-        timestamp,
-        body: body || "",
-        author: author || "",
-        title: title || ""
-      }
+        let data = {
+            id,
+            category: category || this.props.category,
+            timestamp,
+            body: body || "",
+            author: author || "",
+            title: title || ""
+        }
 
-      this.setState({data: data});
+        this.setState({ data: data });
     }
 
     //update controlled inputs
     updateFormField = (field, value) => {
-      this.setState({
-        data: {...this.state.data,
-                  [field]: value
-              }});
+        this.setState({
+            data: { ...this.state.data,
+                [field]: value
+            }
+        });
     }
 
     //checks if user has added information to each field
     validate = () => {
-      let formValid = true;
-      let fields = this.state.valid;
-      Object.keys(fields).forEach((item) => {
-        if (this.state.data[item].length > 0) {
-          fields[item] = true;
-        } else {
-          fields[item] = false;
-          formValid = false;
-        }
-      });
-      this.setState( {valid: fields });
-      return formValid;
+        let formValid = true;
+        let fields = this.state.valid;
+        Object.keys(fields).forEach((item) => {
+            if (this.state.data[item].length > 0) {
+                fields[item] = true;
+            } else {
+                fields[item] = false;
+                formValid = false;
+            }
+        });
+        this.setState({ valid: fields });
+        return formValid;
     }
 
     //finalizes data and submits
     submitPost = () => {
-      if (this.validate()) {
-        const id = this.state.data.id;
-        let post = this.state.data;
-        post.timestamp = new Date().getTime();
-        post.voteScore = (this.newPost)? 1 : this.state.data.voteScore;
-        this.props.addEditPost(post, (this.newPost)? null : id);
-        this.props.goToURL(`/${post.category}/${id}`);
-      }
+        if (this.validate()) {
+            const id = this.state.data.id;
+            let post = this.state.data;
+            post.timestamp = new Date().getTime();
+            post.voteScore = (this.newPost) ? 1 : this.state.data.voteScore;
+            this.props.addEditPost(post, (this.newPost) ? null : id);
+            this.props.goToURL(`/${post.category}/${id}`);
+        }
     }
 
     render() {
+        // the following code runs a check to see status of post details so that some feedback can be given to the user
+        // If the API is working on fetching data it will give the user a loading message.
+        // if the API faled it will give them an error that it wasn't found.
+
         let canDisplayPost = false;
         let errorMsg = "Loading Post Details...";
 
@@ -139,9 +146,11 @@ class ModifyPost extends Component {
         }
 
         return (
-          <div className="main-container">
+            <div className="main-container">
               <div className="post">
-                { (canDisplayPost === false ) ? (
+                {
+                  //displays error message if post data not found
+                  (canDisplayPost === false ) ? (
                   <div className="post-header">
                       <div className="post-error">{errorMsg}</div>
                   </div>
@@ -217,15 +226,15 @@ function mapStateToProps(state, routingDetails) {
     };
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    addEditPost: (post, postID) => dispatch(editOrAddPost(post, postID)),
-    getPostDetails: (data) => dispatch(retreivePostDetails(data)),
-    goToURL: (url) => dispatch(push(url)),
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        addEditPost: (post, postID) => dispatch(editOrAddPost(post, postID)),
+        getPostDetails: (data) => dispatch(retreivePostDetails(data)),
+        goToURL: (url) => dispatch(push(url)),
+    }
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ModifyPost);

@@ -7,89 +7,92 @@ import * as helpers from '../utils/helpers'
 class EditComment extends Component {
 
     state = {
-      data: {
-        id: null,
-        parentId: null,
-        timestamp: null,
-        body: '',
-        author: '',
-        voteScore: null,
-      },
-      valid: {
-        author: true,
-        body: true
-      }
+        data: {
+            id: null,
+            parentId: null,
+            timestamp: null,
+            body: '',
+            author: '',
+            voteScore: null,
+        },
+        valid: {
+            author: true,
+            body: true
+        }
     }
 
     componentDidMount = () => {
-      //If it is an existing comment, get data
-      const { author, body, voteScore, timestamp } = this.props.comment || "";
-      const { commentId, postID } = this.props || "";
+        //If it is an existing comment, get data
+        const { author, body, voteScore, timestamp } = this.props.comment || "";
+        const { commentId, postID } = this.props || "";
         this.setInitialData(commentId, postID, body, author, voteScore, timestamp);
     };
 
     //variable to store whether we are updating or creating new comment
     newComment = false;
 
+    //merge any data from redux into state for controlled components
     setInitialData = (id, parentId, body, author, voteScore, timestamp) => {
 
-      //assign a comment ID if not present and mark this as a new comment
-      let uuid;
-      if (id != null) {
-        uuid = id;
-      } else {
-        uuid = helpers.createUUID();
-        this.newComment = true;
-      }
+        //assign a comment ID if not present and mark this as a new comment
+        let uuid;
+        if (id != null) {
+            uuid = id;
+        } else {
+            uuid = helpers.createUUID();
+            this.newComment = true;
+        }
 
-      let data = {
-        id: uuid,
-        parentId,
-        timestamp,
-        body: body || "",
-        author: author || "",
-        voteScore
-      }
-      this.setState({data: data});
+        let data = {
+            id: uuid,
+            parentId,
+            timestamp,
+            body: body || "",
+            author: author || "",
+            voteScore
+        }
+        this.setState({ data: data });
     }
 
-    //update controlled inputs
+    //update data for controlled inputs
     updateFormField = (field, value) => {
-      this.setState({
-        data: {...this.state.data,
-                  [field]: value
-              }});
+        this.setState({
+            data: { ...this.state.data,
+                [field]: value
+            }
+        });
     }
 
     //checks if user has added information to each field
     validate = () => {
-      let formValid = true;
-      let fields = this.state.valid;
-      Object.keys(fields).forEach((item) => {
-        if (this.state.data[item].length > 0) {
-          fields[item] = true;
-        } else {
-          fields[item] = false;
-          formValid = false;
-        }
-      });
-      this.setState( {valid: fields });
-      return formValid;
+        let formValid = true;
+        let fields = this.state.valid;
+        Object.keys(fields).forEach((item) => {
+            if (this.state.data[item].length > 0) {
+                fields[item] = true;
+            } else {
+                fields[item] = false;
+                formValid = false;
+            }
+        });
+        this.setState({ valid: fields });
+        return formValid;
     }
 
-    //finalizes data and submits
+    //finalizes data and submits.
+    //uses thunk/actions to add to redux state and send to API
     submitComment = () => {
-      if (this.validate()) {
-        const id = this.state.data.id;
-        let comment = this.state.data;
-        comment.timestamp = new Date().getTime();
-        comment.voteScore = (this.newComment)? 1 : this.state.data.voteScore;
-        this.props.addEditComment(comment, (this.newComment)? null : id);
-      }
+        if (this.validate()) {
+            const id = this.state.data.id;
+            let comment = this.state.data;
+            comment.timestamp = new Date().getTime();
+            comment.voteScore = (this.newComment) ? 1 : this.state.data.voteScore;
+            this.props.addEditComment(comment, (this.newComment) ? null : id);
+        }
     }
 
     render() {
-      const { author, body } = this.state.data;
+        const { author, body } = this.state.data;
         return (
             <div className="edit-comment-item">
                 <div className="comment-body">
@@ -119,22 +122,21 @@ class EditComment extends Component {
     };
 };
 
-function mapDispatchToProps (dispatch) {
-  return {
-    addEditComment: (comment, commentID) => dispatch(editOrAddComment(comment, commentID)),
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        addEditComment: (comment, commentID) => dispatch(editOrAddComment(comment, commentID)),
+    }
 }
 
 function mapStateToProps(state, routingDetails) {
     return {
-      comment: state.comments.commentList.filter((item) => (item.id === state.modalWindow.itemId))[0],
-      commentId: state.modalWindow.itemId,
-      postID: state.postList.currentPost
+        comment: state.comments.commentList.filter((item) => (item.id === state.modalWindow.itemId))[0],
+        commentId: state.modalWindow.itemId,
+        postID: state.postList.currentPost
     };
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(EditComment);
-

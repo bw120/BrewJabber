@@ -21,21 +21,20 @@ class DeletePost extends Component {
     };
 };
 
-function mapDispatchToProps (dispatch) {
-  return {
-    deletePost: (id) => dispatch(removePost(id)),
-    goToURL: (url) => dispatch(push(url)),
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        deletePost: (id) => dispatch(removePost(id)),
+        goToURL: (url) => dispatch(push(url)),
+    }
 }
 
 function mapStateToProps(state, routingDetails) {
     return {
-      itemID: state.modalWindow.itemId
+        itemID: state.modalWindow.itemId
     };
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(DeletePost);
-
