@@ -1,21 +1,20 @@
 # Readable - Brew Jabber - App using React and Redux
 
 ## Introduction
-This web app is content and comment web app. Users can add posts to a pre-set list of categories and to add comments to them. Posts and comments can be voted on, edited or delted.
+This web app is content and comment web app. Users can add posts to a pre-set list of categories and to add comments to them. Posts and comments can be voted on, edited or deleted.
 
 The app was built as the second project for the React nanodegree at Udacity. I started with a backend API provided by Udacity and then I built the frontend using React and Redux.
 
-The backend server was updated with a new endpoint to allow it to retreive all comments rather than need to get them one by one for each post. Also, the categories and seed data was customized for this project.
+The backend server was updated with a new endpoint to allow it to retreive all comments rather than needing to get them one by one for each post. Also, the categories and seed data was customized for this project.
 
 ## Installation and Setup
 
 ### Setup the backend server
 - Clone or download the repository from GitHub
-- go to the readable/banckend directory in the termila/prompt.
+- go to the readable/backend directory in the terminal/prompt.
 - Run the command `npm install`
 - When that is done, run the command `npm start`
 - This should run a local server on port 5001
-- Once this is running, refresh the browser on the
 
 ### Setup the front end
 - Open up a comand terminal/prompt and go to the "readable" directory within the repository.
@@ -26,7 +25,7 @@ The backend server was updated with a new endpoint to allow it to retreive all c
 
 ## Backend Server
 
-The backend server was provided by Udacity and then customized by for this project. I added th `/comments` endpoint to get a list of all comments and updated the categories and seed data. For details, check out [README.md](backend/README.md).
+The backend server was provided by Udacity and then customized by for this project. I added the `/comments` endpoint to get a list of all comments for all posts and updated the categories and seed data. For details, check out [README.md](backend/README.md).
 
 ## Contributing
 
