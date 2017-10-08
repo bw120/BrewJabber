@@ -6,33 +6,33 @@ const defaultData = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
     timestamp: 1467166872634,
-    title: 'Udacity is the best place to learn React',
+    title: 'The Night Shift Brewery has the best beer!',
     body: 'Everyone says so after all.',
-    author: 'thingtwo',
-    category: 'react',
+    author: 'Brew Snob',
+    category: 'breweries',
     voteScore: 6,
     deleted: false
   },
   "21657620-9596-11e7-b012-7d616c1bf16f": {
     id: '21657620-9596-11e7-b012-7d616c1bf16f',
     timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
-    author: 'thingone',
-    category: 'redux',
-    voteScore: -5,
+    title: 'The best hoppy beers',
+    body: 'Here are two of the best hoppy beers: Smuttynose Finest Kind, Notch Left of the Dial',
+    author: 'Live long and Hoppy',
+    category: 'beers',
+    voteScore: 9,
     deleted: false
   },
     "ada5a7f0-9595-11e7-b594-bb4ce735fe61": {
     id: "ada5a7f0-9595-11e7-b594-bb4ce735fe61",
     timestamp: 1468479767190,
-    title: 'This post was deleted',
-    body: 'If you are seeing this post, something is wrong. It was supposed to be filtered out.',
-    author: 'thingone',
-    category: 'redux',
+    title: 'Tomatillo beer',
+    body: 'If you brew your own beer, you can put almost anything in there. But that doesn\'t mean you should. Tomatillo beer, for example, sucks!',
+    author: 'OddBrew',
+    category: 'homebrewing',
     voteScore: -5,
-    deleted: true
-  }
+    deleted: false
+  },
 }
 
 function getData (token) {

@@ -25,14 +25,24 @@ const defaultData = {
   },
   "8tu4bsun805n8un48sd89": {
     id: '8tu4bsun805n8un48sd89',
-    parentId: "8xf0y6ziyjabvozdd253nd",
+    parentId: "21657620-9596-11e7-b012-7d616c1bf16f",
     timestamp: 1467479767190,
-    body: 'Deleted comments Are Cool. Just not when they show up when they are not supposed to.',
+    body: 'Don\'t forget, Wormtown Brewery Be Hoppy. One of the best beers ever!',
     author: 'thingone',
-    voteScore: -5,
-    deleted: true,
+    voteScore: 2,
+    deleted: false,
     parentDeleted: false
-  }
+  },
+  "eb851ba0-ac5b-11e7-9229-41de382f844b": {
+    id: 'eb851ba0-ac5b-11e7-9229-41de382f844b',
+    parentId: "ada5a7f0-9595-11e7-b594-bb4ce735fe61",
+    timestamp: 1509890000012,
+    body: 'The Germans had it right by making the Reinheitsgebot law to only allow certain ingredients in beer. Only hops, barley, water and, yeast should be allowed in beer.',
+    author: 'thingone',
+    voteScore: 3,
+    deleted: false,
+    parentDeleted: false
+  },
 }
 
 function getData (token) {
