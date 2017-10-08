@@ -5,6 +5,7 @@ import ShowPostDetails from './ShowPostDetails';
 import ListPosts from './ListPosts';
 import ModifyPost from './ModifyPost';
 import ShowNavBar from './ShowNavBar';
+import NotFound from './NotFound';
 
 
 class App extends Component {
@@ -12,7 +13,9 @@ class App extends Component {
   render() {
     return (
         <div>
+
           <ShowNavBar/>
+
           <main>
             <Switch>
 
@@ -31,6 +34,10 @@ class App extends Component {
               {/* Post details route */}
 
               <Route exact path="/:category/:id" component={ ShowPostDetails } />
+
+              {/* Route not found */}
+
+              <Route component={ NotFound } />
 
             </Switch>
 

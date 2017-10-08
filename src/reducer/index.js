@@ -9,18 +9,16 @@ import {
     SORT_COMMENTS_BY,
     SEARCH_LIST_BY,
     ADD_TO_POST_LIST,
-    GET_COMMENT_LIST,
+    SET_CURRENT_POST,
     GET_ALL_COMMENTS,
-    API_RETURNED_ERROR,
-    API_FETCHING_DATA,
+    API_POST_ERROR,
+    API_FETCHING_POST,
     UPDATE_COMMENT_VOTE,
     UPDATE_POST_VOTE,
     TOGGLE_MODAL_WINDOW,
     DELETE_COMMENT,
     EDIT_COMMENT,
     ADD_COMMENT,
-    EDIT_POST,
-    ADD_POST,
     DELETE_POST
 } from '../actions';
 
@@ -57,23 +55,40 @@ function navBar(state = nav_initialState, action) {
 const postList_initialState = {
     postlist: [],
     sortBy: "voteScore",
-    searchQuery: ""
+    searchQuery: "",
+    currentPost: ""
 };
 
 function postList(state = postList_initialState, action) {
     switch (action.type) {
         case UPDATE_POST_LIST:
             const { postlist } = action;
-
             return {
                 ...state,
                 postlist
             }
         case ADD_TO_POST_LIST:
             const { postDetails } = action;
+            let list = [];
+            let found = false;
+
+            //update if same post
+            list = state.postlist.map((item) => {
+                if (item.id === postDetails.id) {
+                    item = postDetails;
+                    found = true;
+                }
+                return item;
+            });
+
+            //add to list if not already in list
+            if (!found) {
+                list.push(postDetails);
+            }
+
             return {
                 ...state,
-                postlist: state.postlist.concat(postDetails)
+                postlist: list
             }
         case UPDATE_POST_VOTE:
             const { vote, id } = action;
@@ -103,6 +118,12 @@ function postList(state = postList_initialState, action) {
             return {
                 ...state,
                 searchQuery: query
+            }
+        case SET_CURRENT_POST:
+            const { postID } = action;
+            return {
+                ...state,
+                currentPost: postID
             }
         default:
             return state
@@ -153,6 +174,7 @@ function comments(state = comments_initialState, action) {
             }
         case ADD_COMMENT:
             const { addedComment } = action;
+            console.log(addedComment);
             return {
                 ...state,
                 commentList: state.commentList.concat([addedComment])
@@ -169,23 +191,35 @@ function comments(state = comments_initialState, action) {
 }
 
 const apiStatus_initialState = {
-    isFetching: false,
-    errored: false
+    post: {
+        isFetching: false,
+        error: false
+    }
 };
+
+//TO DO
+// 1- update reducer to have status for fetching postDetails, postList, comments, (bascially for each thunk)
+// 2- set postlist, showPostDetails, modifyPost to check prop if successfulll
 
 function apiStatus(state = apiStatus_initialState, action) {
     switch (action.type) {
-        case API_RETURNED_ERROR:
+        case API_POST_ERROR:
             const { errored } = action;
             return {
                 ...state,
-                errored
+                post: {
+                    ...state.post,
+                    error: errored
+                }
             }
-        case API_FETCHING_DATA:
+        case API_FETCHING_POST:
             const { isFetching } = action;
             return {
                 ...state,
-                isFetching
+                post: {
+                    ...state.post,
+                    isFetching
+                }
             }
         default:
             return state

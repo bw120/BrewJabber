@@ -7,8 +7,6 @@ export const SORT_COMMENTS_BY = 'SORT_COMMENTS_BY'
 export const SEARCH_LIST_BY = 'SEARCH_LIST_BY'
 export const ADD_TO_POST_LIST = 'ADD_TO_POST_LIST'
 export const GET_COMMENT_LIST = 'GET_COMMENT_LIST'
-export const API_RETURNED_ERROR = 'API_RETURNED_ERROR'
-export const API_FETCHING_DATA = 'API_FETCHING_DATA'
 export const UPDATE_POST_VOTE = 'UPDATE_POST_VOTE'
 export const UPDATE_COMMENT_VOTE = 'UPDATE_COMMENT_VOTE'
 export const TOGGLE_MODAL_WINDOW = 'TOGGLE_MODAL_WINDOW'
@@ -19,6 +17,11 @@ export const EDIT_POST = 'EDIT_POST'
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS'
+export const API_FETCHING_POST = 'API_FETCHING_POST'
+export const API_POST_ERROR = 'API_POST_ERROR'
+export const SET_CURRENT_POST = 'SET_CURRENT_POST'
+
+
 
 export function updatePostList (postlist) {
   return {
@@ -26,6 +29,14 @@ export function updatePostList (postlist) {
     postlist
   }
 }
+
+export function setCurrentPost (postID) {
+  return {
+    type: SET_CURRENT_POST,
+    postID
+  }
+}
+
 
 export function updateCategoryList (categories) {
   return {
@@ -68,19 +79,12 @@ export function seachListBy (query) {
     }
 }
 
-export function getPostDetails (postDetails) {
+export function addPostDetails (postDetails) {
     return {
         type: ADD_TO_POST_LIST,
         postDetails
     }
 }
-
-// export function getCommentList (comments) {
-//     return {
-//         type: GET_COMMENT_LIST,
-//         comments
-//     }
-// }
 
 export function getAllCommentList (allComments) {
     return {
@@ -100,20 +104,6 @@ export function updatePostVote (vote, id) {
     return {
         type: UPDATE_POST_VOTE,
         vote, id
-    }
-}
-
-export function apiIsFetchingData (bool) {
-    return {
-      type: API_FETCHING_DATA,
-      isFetching: bool
-    }
-}
-
-export function apiReturnedError (bool) {
-    return {
-      type: API_RETURNED_ERROR,
-      errored: bool
     }
 }
 
@@ -163,5 +153,19 @@ export function deletePost (deletedPostId) {
     return {
       type: DELETE_POST,
       deletedPostId
+    }
+}
+
+export function apiIsFetchingPost (bool) {
+    return {
+      type: API_FETCHING_POST,
+      isFetching: bool
+    }
+}
+
+export function apiPostError (bool) {
+    return {
+      type: API_POST_ERROR,
+      errored: bool
     }
 }

@@ -5,9 +5,8 @@ import { sortListBy, seachListBy, selectCategory } from '../actions'
 import { getPosts, retreiveAllComments, vote, removePost } from '../actions/thunks'
 import Link from 'react-router-redux-dom-link';
 import { push } from 'react-router-redux';
-import sortBy from 'sort-by'
-import escapeRegExp from 'escape-string-regexp'
-
+import sortBy from 'sort-by';
+import escapeRegExp from 'escape-string-regexp';
 
 class ListPosts extends Component {
 
@@ -61,8 +60,17 @@ class ListPosts extends Component {
         }
 
         return (
-
             <div className="main-container">
+            { ( typeof(this.props.category) !== "undefined" && this.props.categoryList.filter((item) => (this.props.category === item.name)).length < 1) ? (
+                <div className="post">
+                    <div className="post-header">
+                        <div className="post-error">Sorry, that topic does not exist.</div>
+                        <div className="not-found-msg">Please select one from the dropdown menu at the top.</div>
+                    </div>
+                </div>
+                ) : (
+
+                <div>
                 <div className="list-header">
                     <h1 className="category-header">{this.props.category || "All Posts"}</h1>
                     <div className="sorter-container">
@@ -109,6 +117,8 @@ class ListPosts extends Component {
                         </div>
                     ))
                 }
+                </div>
+            )}
             </div>
         )
     };
@@ -130,6 +140,7 @@ function mapDispatchToProps (dispatch) {
 function mapStateToProps(state, routingDetails) {
     return {
         category: routingDetails.match.params.category,
+        categoryList: state.navBar.categories,
         url: routingDetails.match.url,
         postlist: state.postList.postlist,
         sortby: state.postList.sortBy,

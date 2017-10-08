@@ -23,7 +23,7 @@ class EditComment extends Component {
 
     componentDidMount = () => {
       //If it is an existing comment, get data
-      const { author, body, voteScore, timestamp} = this.props.comment || "";
+      const { author, body, voteScore, timestamp } = this.props.comment || "";
       const { commentId, postID } = this.props || "";
         this.setInitialData(commentId, postID, body, author, voteScore, timestamp);
     };
@@ -89,6 +89,7 @@ class EditComment extends Component {
     }
 
     render() {
+      console.log(this.props.postID);
       const { author, body } = this.state.data;
         return (
             <div className="edit-comment-item">
@@ -127,9 +128,9 @@ function mapDispatchToProps (dispatch) {
 
 function mapStateToProps(state, routingDetails) {
     return {
-      comment: state.postDetails.comments.filter((item) => (item.id === state.modalWindow.itemId))[0],
+      comment: state.comments.commentList.filter((item) => (item.id === state.modalWindow.itemId))[0],
       commentId: state.modalWindow.itemId,
-      postID: state.postDetails.postDetails.id
+      postID: state.postList.currentPost
     };
 }
 

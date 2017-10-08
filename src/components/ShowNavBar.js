@@ -34,7 +34,9 @@ class ShowNavBar extends Component {
                             <span className="category-label hideMobile">Topic: </span>
                             <div className="category-container"><div className="selected-category">
                                 <a href="" onClick={this.toggleMenu}>
-                                    <span className="selected-label hideMobile">{(this.props.selectedCategory.length > 0)? this.props.selectedCategory : "All Topics"}</span>
+                                    <span className="selected-label hideMobile">
+                                        {(this.props.selectedCategory.length > 0 && this.props.categories.filter((item) => (this.props.selectedCategory === item.name)).length > 0)? this.props.selectedCategory : "All Topics"}
+                                    </span>
                                     <span className="hamburger"></span>
                                 </a>
                             </div>
@@ -55,7 +57,7 @@ class ShowNavBar extends Component {
                     </div>
 
 
-                    <div className="logo"><Link to="/"><img className="logo-img" src="../images/BrewJabber_logo.svg" alt="Brew Jabber" width="175"/></Link></div>
+                    <div className="logo"><Link to="/"><img className="logo-img" src="/images/BrewJabber_logo.svg" alt="Brew Jabber" width="175"/></Link></div>
                 </div>
             </div>
           </nav>

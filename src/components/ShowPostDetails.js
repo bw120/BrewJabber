@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as helpers from '../utils/helpers'
 import { retreivePostDetails, retreiveAllComments, vote, removePost } from '../actions/thunks'
-import { sortCommentsBy, toggleModalWindow } from '../actions'
+import { sortCommentsBy, toggleModalWindow, setCurrentPost } from '../actions'
 import { push } from 'react-router-redux';
 import sortBy from 'sort-by'
 import Modal from '../components/Modal'
@@ -11,11 +11,11 @@ import Modal from '../components/Modal'
 class ShowPostDetails extends Component {
 
     componentDidMount = () => {
-        const thisPost = this.getThisPost();
+        const thisPost = this.thisPost();
         if (typeof(thisPost) === "undefined") {
             this.props.getPostDetails(this.props.id);
         }
-
+        this.props.setPostID(this.props.id);
         this.props.getPostComments(this.props.id);
     };
 
@@ -24,17 +24,36 @@ class ShowPostDetails extends Component {
         this.props.goToURL("/");
     }
 
-    getThisPost = () => {
+    thisPost = () => {
         return this.props.postList.filter((item) => (item.id === this.props.id))[0];
     }
 
     render() {
+        let filteredComments = [];
+        const post = this.thisPost();
+        let canDisplayPost = false;
+        let errorMsg = "Sorry, your post was not found.";
 
-        //get details for current post
-        const post = this.getThisPost();
+        //currently pull data from API
+        if (this.props.apiStatus.isFetching) {
+            canDisplayPost = false;
+            errorMsg = "Loading Post Details...";
+        }
 
-        //filter and sort comments
-        const filteredComments = this.props.comments.filter((item) => (item.parentId === post.id)).sort(sortBy(this.props.sortCommentsBy));
+        //Could not get data from API
+        if (this.props.apiStatus.error) {
+            canDisplayPost = false;
+            errorMsg = "Sorry, your post was not found.";
+        }
+
+        //Was able to get data from state or API
+        if (typeof(post) !== "undefined" && this.props.category === post.category) {
+            canDisplayPost = true;
+            errorMsg = "";
+
+            //filter and sort comments
+            filteredComments = this.props.comments.filter((item) => (item.parentId === post.id)).sort(sortBy(this.props.sortCommentsBy));
+        }
 
         return (
             <div className="main-container">
@@ -42,9 +61,9 @@ class ShowPostDetails extends Component {
                 <div className="post">
 
 
-                { (typeof(post) === "undefined") ? (
+                { (canDisplayPost === false ) ? (
                     <div className="post-header">
-                        <div className="post-error">Sorry, your post was not found.</div>
+                        <div className="post-error">{errorMsg}</div>
                     </div>
                     ) : (
                     <div>
@@ -139,7 +158,8 @@ function mapStateToProps(state, routingDetails) {
         comments: state.comments.commentList,
         sortCommentsBy: state.comments.sortBy,
         modalWindowOpen: state.modalWindow.open,
-        category: routingDetails.match.params.category
+        category: routingDetails.match.params.category,
+        apiStatus: state.apiStatus.post
     };
 }
 
@@ -152,6 +172,7 @@ function mapDispatchToProps (dispatch) {
     openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component)),
     deletePost: (id) => dispatch(removePost(id)),
     goToURL: (url) => dispatch(push(url)),
+    setPostID: (id) => dispatch(setCurrentPost(id))
   }
 }
 
