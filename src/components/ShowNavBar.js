@@ -26,7 +26,7 @@ class ShowNavBar extends Component {
 
     render() {
         return (
-          <nav>
+            <nav>
             <div className="top-bar-container">
                 <div className="top-bar">
                     <div className="nav-buttons">
@@ -35,7 +35,7 @@ class ShowNavBar extends Component {
                             <div className="category-container"><div className="selected-category">
                                 <a href="" onClick={this.toggleMenu}>
                                     <span className="selected-label hideMobile">
-                                        {(this.props.selectedCategory.length > 0 && this.props.categories.filter((item) => (this.props.selectedCategory === item.name)).length > 0)? this.props.selectedCategory : "All Topics"}
+                                        {(this.props.selectedCategory.length > 0 && this.props.categories.filter((item) => (this.props.selectedCategory === item.path)).length > 0)? this.props.selectedCategory : "All Topics"}
                                     </span>
                                     <span className="hamburger"></span>
                                 </a>
@@ -47,7 +47,7 @@ class ShowNavBar extends Component {
                                 <li onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory("")} } className="category"><Link className="category-link sub" to={"/"}>All Topics</Link></li>
                                 {
                                     this.props.categories.map((item) => (
-                                        <li key={item.name} onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory(item.name)} } className="category"><Link className="category-link sub" to={`/${item.path}`}>{item.name}</Link></li>
+                                        <li key={item.name} onClick={ (e)=> {e.preventDefault(); this.handleSelectCategory(item.path)} } className="category"><Link className="category-link sub" to={`/${item.path}`}>{item.name}</Link></li>
                                     ))
                                 }
                             </ul>)}
@@ -74,18 +74,18 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    setCategories: (data) => dispatch(updateCategoryList(data)),
-    activateMenu: () => dispatch(openNavMenu()),
-    changeCategory: (category) => dispatch(selectCategory(category))
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        setCategories: (data) => dispatch(updateCategoryList(data)),
+        activateMenu: () => dispatch(openNavMenu()),
+        changeCategory: (category) => dispatch(selectCategory(category))
+    }
 }
 
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ShowNavBar);
 
 // export default ShowNavBar;
