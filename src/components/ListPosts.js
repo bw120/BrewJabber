@@ -18,7 +18,7 @@ class ListPosts extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.category !== this.props.category) {
-          this.updatePageCategory(nextProps.category);
+            this.updatePageCategory(nextProps.category);
         }
     }
 
@@ -59,11 +59,11 @@ class ListPosts extends Component {
         } else {
             postList = this.props.postlist;
         }
-console.log(this.props.category);
-console.log(this.props.categoryList.filter((item) => (this.props.category === item.path)));
+
         return (
             <div className="main-container">
             { (this.props.modalWindowOpen) && (<Modal/>) }
+
             { ( typeof(this.props.category) !== "undefined" && this.props.categoryList.filter((item) => (this.props.category === item.path)).length < 1) ? (
                 <div className="post">
                     <div className="post-header">
@@ -95,26 +95,33 @@ console.log(this.props.categoryList.filter((item) => (this.props.category === it
                         <div key={item.id} className="card-link" >
                             <div className="card">
                                 <div className="card-content">
-                                        <div className="vote-score">
+                                        <div className="card-top-row">
+                                            <div className="title"><Link to={`/${item.category}/${item.id}`}>{item.title}</Link></div>
+                                            <div className="author">{item.author}</div>
 
+                                            <div className="vote-score">
+                                                <span className="vote-buttons">
+                                                    <a className="vote-button" onClick={(e) => { e.preventDefault(); this.props.goVote("upVote", "post", item.id)}}>
+                                                        <i className="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                    </a>
+                                                    &nbsp;{ item.voteScore }&nbsp;
+                                                    <a className="vote-button" onClick={(e) => { e.preventDefault();this.props.goVote("downVote", "post", item.id)}}>
+                                                        <i className="fa fa-thumbs-down" aria-hidden="true"> </i>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="card-bottom-row">
 
-                                            <span className="bold-item">Rating:</span> { item.voteScore }
-                                            <span className="vote-buttons">
-                                                <a className="vote-button" onClick={(e) => { e.preventDefault(); this.props.goVote("upVote", "post", item.id)}}>
-                                                    <i className="fa fa-thumbs-up" aria-hidden="true"></i>
-                                                </a>
-                                                <a className="vote-button" onClick={(e) => { e.preventDefault();this.props.goVote("downVote", "post", item.id)}}>
-                                                    <i className="fa fa-thumbs-down" aria-hidden="true"> </i>
-                                                </a>
-                                            </span>
+                                            <div className="date">{ helpers.formatDate(item.timestamp) }</div>
 
+                                            <div className="comments">{ (comments[item.id]) ? comments[item.id].length : 0 } comments</div>
+                                            <div className="buttons">
+                                                <a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "", item.id, "deletePost")}}>Delete</a>&nbsp;|&nbsp;
+                                                <Link to={`/editPost/${item.id}`}>Edit</Link>
+                                            </div>
 
                                         </div>
-                                        <div className="title"><Link to={`/${item.category}/${item.id}`}>{item.title}</Link></div>
-                                        <div className="author">{item.author}</div>&nbsp;
-                                        <div className="comments">{ (comments[item.id]) ? comments[item.id].length : 0 }comments</div>
-                                        <div className="date">{ helpers.formatDate(item.timestamp) }</div>
-                                        <div className="buttons"><a onClick={ (e) => { e.preventDefault(); this.props.openModal(true, "", item.id, "deletePost")}}>Delete</a> | <Link to={`/editPost/${item.id}`}>Edit</Link></div>
                                 </div>
                             </div>
                         </div>
@@ -127,18 +134,18 @@ console.log(this.props.categoryList.filter((item) => (this.props.category === it
     };
 };
 
-function mapDispatchToProps (dispatch) {
-  return {
-    updateList: (data) => dispatch(getPosts(data)),
-    changeSortBy: (data) => dispatch(sortListBy(data)),
-    updateQuery: (data) => dispatch(seachListBy(data)),
-    changeCategory: (category) => dispatch(selectCategory(category)),
-    getAllComments: () => dispatch(retreiveAllComments()),
-    goVote: (action, type, id) => dispatch(vote(action, type, id)),
-    deletePost: (id) => dispatch(removePost(id)),
-    goToURL: (url) => dispatch(push(url)),
-    openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component)),
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        updateList: (data) => dispatch(getPosts(data)),
+        changeSortBy: (data) => dispatch(sortListBy(data)),
+        updateQuery: (data) => dispatch(seachListBy(data)),
+        changeCategory: (category) => dispatch(selectCategory(category)),
+        getAllComments: () => dispatch(retreiveAllComments()),
+        goVote: (action, type, id) => dispatch(vote(action, type, id)),
+        deletePost: (id) => dispatch(removePost(id)),
+        goToURL: (url) => dispatch(push(url)),
+        openModal: (open, title, itemId, component) => dispatch(toggleModalWindow(open, title, itemId, component)),
+    }
 }
 
 function mapStateToProps(state, routingDetails) {
@@ -155,6 +162,6 @@ function mapStateToProps(state, routingDetails) {
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ListPosts);

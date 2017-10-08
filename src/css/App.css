@@ -9,6 +9,20 @@ nav {
     z-index: 2;
 }
 
+a,
+a:link,
+a:visited {
+    color: #01A2AA;
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    color: #006166;
+    text-decoration: none;
+}
+
+
 .top-bar-container {
     padding: 10px 20px;
     width: 100%;
@@ -230,8 +244,10 @@ main {
 
 .category-header {
     margin: 8px 10px 10px 10px;
+    padding-top: 10px;
     color: #017C82;
     font-size: 1.5em;
+    text-transform: capitalize;
 }
 
 .sorter-container {
@@ -307,28 +323,43 @@ textarea {
     align-items: center;
 }
 
-.card:hover {
-    background-color: rgba(230, 230, 230, .95);
-    box-shadow: none;
-}
-
 .card-content {
     width: 100%;
+}
+.card-top-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+.card-bottom-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 300;
+    font-style: italic;
+    font-size: .9em;
 }
 .vote-score {
     display: inline-block;
     width: 15%;
+    text-align: right;
 }
 .title {
     display: inline-block;
-    width: 55%;
+    width: 33%;
+    text-transform: capitalize;
+}
+.author {
+    display: inline-block;
+    width: 33%;
+    font-weight: 400;
+    font-style: italic;
 }
 .date {
     display: inline-block;
-    width: 30%;
+    width: 33%;
 }
 
 .fa-thumbs-up,
@@ -338,6 +369,7 @@ textarea {
 
 .vote-buttons {
     padding: 0 10px 0 10px;
+    display: block;
 }
 
 .vote-button {
@@ -350,15 +382,10 @@ textarea {
 .card-link {
     text-decoration: none;
     color: #666;
-    cursor: pointer;
 }
 
 .title-link:hover {
     color: #00A90B;
-}
-
-.date {
-    text-align: right;
 }
 
 @media screen and (max-width: 768px) {
@@ -379,10 +406,16 @@ textarea {
     }
 
     .sorter {
-        min-width: auto;
+        min-width: 100%;
         text-align: left;
         margin-bottom: 5px;
         height: auto;
+    }
+
+    .vote-score {
+        display: inline-block;
+        width: 60px;
+        text-align: right;
     }
 
     select,
@@ -649,4 +682,15 @@ label {
 
 .form-group {
     margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+.modal-window {
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    max-height: calc(100% - 40px);
+    left: 50%;
+    max-width: calc(100% - 30px);
+}
 }
